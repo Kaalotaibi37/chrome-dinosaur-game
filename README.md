@@ -3,25 +3,40 @@
 [![Stargazers][stars-shield]][stars-url]
 [![Issues][issues-shield]][issues-url]
 
+# Chrome Dinosaur Game
 
-<!-- PROJECT TITLE  -->
-<h1 align="left">Chrome Dinosaur Game</h1>
+This is an undergraduate computer science project for Internet Technologies CS438 at Imam Mohammad Ibn Saud Islamic University.
 
-
-<!-- Overview -->
 ## Overview
 
+The project is building a clone of the Dino chrome game but with added functionalities:
 
+- User authentication.
+- Game score history.
+- Dedicated back-end with relational database.
 
-<!-- Bulit with -->
-### Built With
+## Stack
 
+WIP
 
+## Contributers
 
-## Contact 
+| Student                      |    ID     |     Github      |
+| :--------------------------- | :-------: | :-------------: |
+| Khalid Abdulaziz Alotaibi    | 439012737 | [Kaalotaibi37]  |
+| Mansour Abdulaziz Alsaleh    | 440029449 |    [Maas-99]    |
+| Mohammad Sulaiman Alkhalifah | 439011298 | [mssalkhalifah] |
 
+[kaalotaibi37]: https://github.com/Kaalotaibi37
+[maas-99]: https://github.com/Maas-99
+[mssalkhalifah]: https://github.com/mssalkhalifah
+
+## Credit
+
+WIP
 
 <!-- MARKDOWN LINKS -->
+
 [contributors-shield]: https://img.shields.io/github/contributors/Kaalotaibi37/chrome-dinosaur-game.svg?style=flat-square
 [contributors-url]: https://github.com/Kaalotaibi37/chrome-dinosaur-game/graphs/contributors
 [forks-shield]: https://img.shields.io/github/forks/Kaalotaibi37/chrome-dinosaur-game.svg?style=flat-square
