@@ -2,10 +2,14 @@ let config = {
   type: Phaser.AUTO,
   width: 800,
   height: 600,
+  canvas: document.getElementById("myCanvas"),
   physics: {
     default: "arcade",
     arcade: {
       gravity: { y: 200 },
+      debug: true,
+      height: 495,
+      isPaused: false,
     },
   },
   scene: {
@@ -16,33 +20,54 @@ let config = {
 };
 
 let game = new Phaser.Game(config);
+let platform;
+let backgroundTile;
+let player;
+let cursor;
 
 function preload() {
-  this.load.setBaseURL("http://labs.phaser.io");
-
-  this.load.image("sky", "assets/skies/space3.png");
-  this.load.image("logo", "assets/sprites/phaser3-logo.png");
-  this.load.image("red", "assets/particles/red.png");
+  this.load.image("ground", "assets/background.png");
+  //   this.load.image("player", "assets/player.png");
+  this.load.spritesheet("player", "assets/player_spritesheet.png", {
+    frameWidth: 50,
+    frameHeight: 50,
+  });
 }
 
 function create() {
-  this.add.image(400, 300, "sky");
+  cursor = this.input.keyboard.createCursorKeys();
+  backgroundTile = this.add.tileSprite(400, 300, 800, 600, "ground");
 
-  let particles = this.add.particles("red");
+  player = this.physics.add.sprite(50, 50, "player");
+  player.setCollideWorldBounds(true);
+  player.setGravityY(850);
 
-  let emitter = particles.createEmitter({
-    speed: 100,
-    scale: { start: 1, end: 0 },
-    blendMode: "ADD",
+  this.anims.create({
+    key: "crouch",
+    frames: [{ key: "player", frame: 1 }],
+    frameRate: 10,
   });
 
-  let logo = this.physics.add.image(400, 100, "logo");
-
-  logo.setVelocity(100, 200);
-  logo.setBounce(1, 1);
-  logo.setCollideWorldBounds(true);
-
-  emitter.startFollow(logo);
+  this.anims.create({
+    key: "idle",
+    frames: [{ key: "player", frame: 0 }],
+    frameRate: 10,
+  });
 }
 
-function update() {}
+function update() {
+  player.anims.play("idle", true);
+  player.setSize(50, 50);
+  if (cursor.up.isDown && player.y >= 470) {
+    player.setGravityY(850);
+    player.setVelocityY(-550);
+  }
+
+  if (cursor.down.isDown && player.y >= 470) {
+    player.anims.play("crouch", true);
+    player.setSize(50, 35);
+    player.setOffset(0, 15);
+  }
+
+  backgroundTile.tilePositionX += 3.5;
+}
