@@ -30,6 +30,21 @@ class Game extends Phaser.Scene {
       loop: true,
       callback: () => this.birds.addBird(),
     });
+
+    this.physics.world.addOverlap(
+      this.player.object,
+      this.birds.group,
+      (player, bird) => {
+        if (!player.invisibility) {
+          player.invisibility = true;
+          player.hit();
+          console.group("Collision Player and bird");
+          console.log("Collision detected!");
+          console.log("Player health: " + player.health);
+          console.groupEnd("Collision Player and bird");
+        }
+      }
+    );
   }
 
   update() {

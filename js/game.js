@@ -12,6 +12,26 @@ export class Player extends Actor {
     this.object.setGravityY(850);
     this.object.x = 50;
     this.object.y = 470;
+    this.object.health = 3;
+    this.object.invisibilty = false;
+
+    this.object.hit = () => {
+      this.object.health -= 1;
+
+      this.game.time.addEvent({
+        delay: 1000,
+        loop: false,
+        callback: () => (this.object.invisibility = false),
+      });
+
+      this.game.time.addEvent({
+        delay: 200,
+        repeat: 5,
+        callback: () => {
+          this.object.setVisible(!this.object.visible);
+        },
+      });
+    };
 
     this.game.anims.create({
       key: "crouch",
