@@ -1,4 +1,43 @@
-import { Player, Bird } from "./game.js";
+import { Player, BirdManager } from "./game.js";
+
+class Game extends Phaser.Scene {
+  constructor() {
+    super();
+    Phaser.Scene.call(this, { key: "Game" });
+  }
+
+  preload() {
+    this.load.image("ground", "assets/background.png");
+    this.load.spritesheet("bird", "assets/Bird.png", {
+      frameWidth: 50,
+      frameHeight: 50,
+    });
+    this.load.spritesheet("player", "assets/player_spritesheet.png", {
+      frameWidth: 50,
+      frameHeight: 50,
+    });
+  }
+
+  create() {
+    this.backgroundTile = this.add.tileSprite(400, 300, 800, 600, "ground");
+    this.birds = new BirdManager(this);
+    this.birds.create();
+    this.player = new Player(this);
+    this.player.create();
+
+    this.time.addEvent({
+      delay: 1000,
+      loop: true,
+      callback: () => this.birds.addBird(),
+    });
+  }
+
+  update() {
+    this.player.update();
+    this.birds.update();
+    this.backgroundTile.tilePositionX += 3.5;
+  }
+}
 
 let config = {
   type: Phaser.AUTO,
@@ -13,42 +52,7 @@ let config = {
       isPaused: false,
     },
   },
-  scene: {
-    preload: preload,
-    create: create,
-    update: update,
-  },
+  scene: [Game],
 };
 
 let game = new Phaser.Game(config);
-let backgroundTile;
-let player;
-let bird;
-
-function preload() {
-  this.load.image("ground", "assets/background.png");
-  this.load.spritesheet("bird", "assets/Bird.png", {
-    frameWidth: 50,
-    frameHeight: 50,
-  });
-  this.load.spritesheet("player", "assets/player_spritesheet.png", {
-    frameWidth: 50,
-    frameHeight: 50,
-  });
-}
-
-function create() {
-  backgroundTile = this.add.tileSprite(400, 300, 800, 600, "ground");
-
-  player = new Player(this);
-  player.create();
-
-  bird = new Bird(this);
-  bird.create();
-}
-
-function update() {
-  player.update();
-  bird.update();
-  backgroundTile.tilePositionX += 3.5;
-}
