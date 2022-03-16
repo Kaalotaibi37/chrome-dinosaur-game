@@ -20,7 +20,7 @@ body{
   border-radius: 10px;
   box-shadow: 0 15px 25px rgba(0, 0, 0, 0.5);
   color: #ffff;
-  padding: 80px 40px 40px;
+  padding: 40px 40px 40px;
   position: relative;
   max-width: 380px;
   width: 100%;
@@ -75,20 +75,30 @@ width: 100#;
   transform: translateY(-18px);
 }
 .button{
+  font-size: 1rem;
   background: #90EE90;
   border: none;
   border-radius: 5px;
   cursor: pointer;
   display: block;
-  font-size: 1rem;
+  font-size: 1rem
   letter-spacing: 1px;
   outline: none;
-  text-transform: uppercase;
+  /*text-transform: uppercase;*/
   padding: 10px 20px;
-  margin-left: auto;
+  /* margin-left: auto; */
   line-height:1.1em;
-  width:120px;
+  width:300px;
   height:50px;
+  margin-top: 30px
+}
+#reg {
+  float: left;
+  margin-bottom: 15px;
+}
+#forg{
+  float: right;
+  margin-bottom: 15px;
 }
 #forgot-password{
   align-items: center;
