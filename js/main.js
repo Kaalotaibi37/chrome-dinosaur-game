@@ -1,4 +1,4 @@
-import { Player, BirdManager } from "./game.js";
+import { Player, BirdManager, GroundManager } from "./game.js";
 
 /**
  * The game's pause screen.
@@ -92,16 +92,25 @@ class Game extends Phaser.Scene {
   }
 
   create() {
-    this.backgroundTile = this.add.tileSprite(400, 300, 800, 600, "ground");
+    this.backgroundTile = this.add.tileSprite(400, 600, 800, 192, "ground");
+    this.physics.add.existing(this.backgroundTile, true);
+    console.log(this.backgroundTile);
     this.birds = new BirdManager(this);
     this.birds.create();
     this.player = new Player(this);
     this.player.create();
+    this.globalSpeed = 0;
 
     this.time.addEvent({
       delay: 1000,
       loop: true,
       callback: () => this.birds.addBird(),
+    });
+
+    this.time.addEvent({
+      delay: 1000,
+      loop: true,
+      callback: () => (this.globalSpeed += 0.05),
     });
 
     this.physics.world.addOverlap(
@@ -125,20 +134,20 @@ class Game extends Phaser.Scene {
         currentScene.pause();
       }
     });
+
+    this.physics.add.collider(this.player.object, this.backgroundTile);
   }
 
   update() {
     if (this.player.object.health <= 0) {
-      this.scene.launch("Gameover", [
-        this.player.object.x,
-        this.player.object.y,
-      ]);
-      this.scene.pause();
     }
 
     this.player.update();
     this.birds.update();
-    this.backgroundTile.tilePositionX += 2.5;
+    let tileSpeed = 1 + this.globalSpeed;
+    if (tileSpeed <= 20) {
+      this.backgroundTile.tilePositionX += tileSpeed;
+    }
   }
 }
 
@@ -153,8 +162,7 @@ let config = {
     // The game's physics configuration
     default: "arcade",
     arcade: {
-      debug: false,
-      height: 495,
+      debug: true,
       isPaused: false,
     },
   },

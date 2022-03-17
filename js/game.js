@@ -12,7 +12,7 @@ export class Player extends Actor {
     this.object.setCollideWorldBounds(true);
     this.object.setGravityY(850);
     this.object.x = 50;
-    this.object.y = 470;
+    this.object.y = 450;
     this.object.health = 3;
     this.object.invisibilty = false;
     this.cursor.space.repeat = 1;
@@ -84,11 +84,20 @@ export class Player extends Actor {
       frameRate: 10,
       repeat: 0,
     });
+
+    this.maxAnimationThreshHold = 25;
+    this.object.anims.msPerFrame = 100;
   }
 
   update() {
     let player = this.object;
     player.setVelocityX(0);
+
+    if (player.anims.msPerFrame > this.maxAnimationThreshHold) {
+      player.anims.msPerFrame = 100 - 10 * this.game.globalSpeed;
+    } else {
+      player.anims.msPerFrame = this.maxAnimationThreshHold;
+    }
 
     console.log(this.currentState, player.y);
 
@@ -106,8 +115,8 @@ export class Player extends Actor {
 
     switch (this.currentState) {
       case this.state.RUN: {
-        player.setSize(40, 45);
-        player.setOffset(4, 12);
+        player.setSize(15, 40);
+        player.setOffset(20, 17);
         this.object.play("run", true);
         if (this.cursor.up.isDown) {
           player.anims.play("jump");
@@ -120,8 +129,8 @@ export class Player extends Actor {
         break;
       }
       case this.state.CROUCH: {
-        player.setSize(50, 38);
-        player.setOffset(0, 19);
+        player.setSize(40, 18);
+        player.setOffset(7, 39);
         player.anims.play("crouch", true);
         if (!this.cursor.down.isDown) {
           this.currentState = this.state.RUN;
@@ -135,8 +144,9 @@ export class Player extends Actor {
         break;
       }
       case this.state.DEAD: {
-        player.anims.play("death");
         player.setVisible(false);
+        this.game.scene.launch("Gameover", [player.x, player.y]);
+        this.game.scene.pause();
         break;
       }
     }
@@ -231,11 +241,17 @@ export class BirdManager {
 
   update() {
     this.group.children.iterate((bird) => {
-      bird.setVelocityX(-200);
+      bird.setVelocityX(-200 - this.game.globalSpeed * 20);
       bird.y = bird.pathFunc(bird);
       if (bird.x < 0 || bird.y > 495) {
         this.group.killAndHide(bird);
       }
     });
   }
+}
+
+export class GroundManager extends Actor {
+  create() {}
+
+  update() {}
 }
