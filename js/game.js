@@ -13,7 +13,7 @@ export class Player extends Actor {
     this.object.setGravityY(850);
     this.object.x = 50;
     this.object.y = 450;
-    this.object.health = 3;
+    this.object.health = 4;
     this.object.invisibilty = false;
     this.cursor.space.repeat = 1;
 
@@ -99,7 +99,7 @@ export class Player extends Actor {
       player.anims.msPerFrame = this.maxAnimationThreshHold;
     }
 
-    console.log(this.currentState, player.y);
+    // console.log(this.currentState, player.y);
 
     if (player.health <= 0) {
       this.currentState = this.state.DEAD;

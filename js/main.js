@@ -1,4 +1,5 @@
 import { Player, BirdManager, GroundManager } from "./game.js";
+import { Healthbar } from "./ui.js";
 
 /**
  * The game's pause screen.
@@ -59,7 +60,7 @@ class Gameover extends Phaser.Scene {
   update() {
     if (this.playDeathAnimation) {
       this.player.setGravityY(850);
-      this.player.setVelocityY(-400);
+      this.player.setVelocityY(-500);
       this.playDeathAnimation = false;
     }
     if (this.cursor.left.isDown) {
@@ -81,6 +82,8 @@ class Game extends Phaser.Scene {
 
   preload() {
     this.load.image("ground", "assets/background.png");
+    this.load.image("healthbarBorder", "assets/healthbar_border.png");
+    this.load.image("healthbar", "assets/healthbar.png");
     this.load.spritesheet("bird", "assets/Bird.png", {
       frameWidth: 50,
       frameHeight: 50,
@@ -94,12 +97,23 @@ class Game extends Phaser.Scene {
   create() {
     this.backgroundTile = this.add.tileSprite(400, 600, 800, 192, "ground");
     this.physics.add.existing(this.backgroundTile, true);
+    this.currentScore = 0;
+    this.scoreText = this.add.text(690, 30, "Score: 0");
     console.log(this.backgroundTile);
     this.birds = new BirdManager(this);
-    this.birds.create();
     this.player = new Player(this);
-    this.player.create();
+    this.healthbar = new Healthbar(this);
     this.globalSpeed = 0;
+
+    this.player.create();
+    this.birds.create();
+    this.healthbar.create();
+
+    this.time.addEvent({
+      delay: 500,
+      loop: true,
+      callback: () => (this.scoreText.text = `Score: ${++this.currentScore}`),
+    });
 
     this.time.addEvent({
       delay: 1000,
@@ -120,6 +134,7 @@ class Game extends Phaser.Scene {
         if (!player.invisibility) {
           player.invisibility = true;
           player.hit();
+          this.healthbar.draw(player.health);
           console.group("Collision Player and bird");
           console.log("Collision detected!");
           console.log("Player health: " + player.health);
@@ -162,7 +177,7 @@ let config = {
     // The game's physics configuration
     default: "arcade",
     arcade: {
-      debug: true,
+      debug: false,
       isPaused: false,
     },
   },
