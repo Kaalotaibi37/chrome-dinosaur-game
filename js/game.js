@@ -7,13 +7,23 @@ class Actor {
 export class Player extends Actor {
   create() {
     this.cursor = this.game.input.keyboard.createCursorKeys();
-    this.object = this.game.physics.add.sprite(50, 50, "player");
+    this.object = this.game.physics.add.sprite(52, 58, "player");
+    this.object.setScale(2);
     this.object.setCollideWorldBounds(true);
     this.object.setGravityY(850);
     this.object.x = 50;
     this.object.y = 470;
     this.object.health = 3;
     this.object.invisibilty = false;
+    this.cursor.space.repeat = 1;
+
+    this.state = {
+      RUN: "run",
+      CROUCH: "crouch",
+      JUMP: "jump",
+      DEAD: "dead",
+    };
+    this.currentState = this.state.RUN;
 
     this.object.hit = () => {
       this.object.health -= 1;
@@ -35,22 +45,56 @@ export class Player extends Actor {
 
     this.game.anims.create({
       key: "crouch",
-      frames: [{ key: "player", frame: 1 }],
-      frameRate: 10,
+      frames: this.game.anims.generateFrameNumbers("player", {
+        start: 6,
+        end: 11,
+      }),
+      frameRate: 12,
     });
 
     this.game.anims.create({
-      key: "idle",
-      frames: [{ key: "player", frame: 0 }],
+      key: "run",
+      frames: this.game.anims.generateFrameNumbers("player", {
+        start: 0,
+        end: 5,
+      }),
+      frameRate: 12,
+    });
+
+    this.game.anims.create({
+      key: "jump",
+      frames: this.game.anims.generateFrameNumbers("player", {
+        start: 12,
+        end: 13,
+      }),
+      frameRate: 12,
+      repeat: 0,
+    });
+
+    this.game.anims.create({
+      key: "death",
+      frames: this.game.anims.generateFrameNumbers("player", {
+        frames: [
+          14, 15, 16, 15, 16, 15, 16, 15, 16, 15, 16, 15, 16, 15, 16, 15, 16,
+          15, 16, 15, 16, 15, 16, 15, 16, 15, 16, 15, 16, 15, 16, 15, 16, 15,
+          16, 15, 16, 15, 16, 15, 16, 15, 16, 15, 16, 15, 16, 15, 16,
+        ],
+      }),
+      delay: 1000,
       frameRate: 10,
+      repeat: 0,
     });
   }
 
   update() {
     let player = this.object;
-    player.anims.play("idle", true);
-    player.setSize(30, 50);
     player.setVelocityX(0);
+
+    console.log(this.currentState, player.y);
+
+    if (player.health <= 0) {
+      this.currentState = this.state.DEAD;
+    }
 
     if (this.cursor.right.isDown) {
       player.setVelocityX(200);
@@ -60,14 +104,41 @@ export class Player extends Actor {
       player.setVelocityX(-200);
     }
 
-    if (this.cursor.up.isDown && player.y >= 470) {
-      player.setVelocityY(-550);
-    }
-
-    if (this.cursor.down.isDown && player.y >= 470) {
-      player.anims.play("crouch", true);
-      player.setSize(50, 35);
-      player.setOffset(0, 15);
+    switch (this.currentState) {
+      case this.state.RUN: {
+        player.setSize(40, 45);
+        player.setOffset(4, 12);
+        this.object.play("run", true);
+        if (this.cursor.up.isDown) {
+          player.anims.play("jump");
+          player.setVelocityY(-550);
+          this.currentState = this.state.JUMP;
+        }
+        if (this.cursor.down.isDown) {
+          this.currentState = this.state.CROUCH;
+        }
+        break;
+      }
+      case this.state.CROUCH: {
+        player.setSize(50, 38);
+        player.setOffset(0, 19);
+        player.anims.play("crouch", true);
+        if (!this.cursor.down.isDown) {
+          this.currentState = this.state.RUN;
+        }
+        break;
+      }
+      case this.state.JUMP: {
+        if (player.y >= 439) {
+          this.currentState = this.state.RUN;
+        }
+        break;
+      }
+      case this.state.DEAD: {
+        player.anims.play("death");
+        player.setVisible(false);
+        break;
+      }
     }
   }
 }
