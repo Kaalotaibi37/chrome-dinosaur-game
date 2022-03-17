@@ -13,7 +13,7 @@ export class Player extends Actor {
     this.object.setGravityY(850);
     this.object.x = 50;
     this.object.y = 450;
-    this.object.health = 10000;
+    this.object.health = 4;
     this.object.invisibilty = false;
     this.cursor.space.repeat = 1;
 
@@ -169,11 +169,7 @@ const birdPaths = {
   },
 };
 
-export class BirdManager {
-  constructor(game) {
-    this.game = game;
-  }
-
+export class BirdManager extends Actor {
   create() {
     this.group = this.game.physics.add.group({
       defaultKey: "bird",
@@ -186,6 +182,16 @@ export class BirdManager {
         console.log(`Removed bird: ${bird.name}`);
       },
     });
+
+    this.game.anims.create({
+      key: "fly",
+      frames: this.game.anims.generateFrameNumbers("bird", {
+        start: 0,
+        end: 1,
+      }),
+      frameRate: 10,
+      repeat: -1,
+    });
   }
 
   addBird() {
@@ -197,6 +203,8 @@ export class BirdManager {
 
     if (!bird) return;
 
+    bird.anims.play("fly");
+
     if (this.group.maxSize < 30) {
       this.group.maxSize += Math.floor(this.game.globalSpeed * Math.random());
     }
@@ -206,7 +214,19 @@ export class BirdManager {
     bird.x = 850;
 
     switch (paths[index]) {
-      case birdPaths.horizontalLine.name: {
+      case birdPaths.parabola.name: {
+        bird.yPos = Math.floor(Math.random() * 600 + 100);
+        bird.xPos = Math.floor(Math.random() * 600 + 100);
+        bird.pathFunc = birdPaths.parabola;
+        break;
+      }
+      case birdPaths.wave.name: {
+        bird.waveHeight = 100 + Math.floor(Math.random() * 111);
+        bird.waveLength = 100 + Math.floor(Math.random() * 100);
+        bird.pathFunc = birdPaths.wave;
+        break;
+      }
+      default: {
         const y = [
           445,
           445,
@@ -221,23 +241,6 @@ export class BirdManager {
         bird.pathFunc = birdPaths.horizontalLine;
         break;
       }
-      case birdPaths.dive.name: {
-        bird.yPos = Math.floor(Math.random() * 600 + 100);
-        bird.pathFunc = birdPaths.dive;
-        break;
-      }
-      case birdPaths.parabola.name: {
-        bird.yPos = Math.floor(Math.random() * 600 + 100);
-        bird.xPos = Math.floor(Math.random() * 600 + 100);
-        bird.pathFunc = birdPaths.parabola;
-        break;
-      }
-      case birdPaths.wave.name: {
-        bird.waveHeight = 100 + Math.floor(Math.random() * 111);
-        bird.waveLength = 100 + Math.floor(Math.random() * 100);
-        bird.pathFunc = birdPaths.wave;
-        break;
-      }
     }
 
     bird.setActive(true).setVisible(true);
@@ -250,6 +253,64 @@ export class BirdManager {
       if (bird.x < 0 || bird.y > 495) {
         this.group.killAndHide(bird);
       }
+    });
+  }
+}
+
+export class MeteorManager extends Actor {
+  create() {
+    this.group = this.game.physics.add.group({
+      defaultKey: "meteor",
+      maxSize: 5,
+    });
+
+    this.game.anims.create({
+      key: "meteor",
+      frames: this.game.anims.generateFrameNumbers("meteor", {
+        start: 0,
+        end: 2,
+      }),
+      frameRate: 10,
+      repeat: -1,
+    });
+
+    this.game.anims.create({
+      key: "explosion",
+      frames: this.game.anims.generateFrameNumbers("metero_explosion", {
+        start: 0,
+        end: 6,
+      }),
+      frameRate: 60,
+      repeat: 0,
+      hideOnComplete: true,
+    });
+  }
+
+  addMeteor() {
+    let spawnRate = Math.random() * 10;
+
+    if (spawnRate > 3) return;
+
+    const meteor = this.group.get();
+
+    if (!meteor) return;
+
+    meteor.explode = false;
+    meteor.x = 800;
+    meteor.setSize(8, 8);
+    meteor.setOffset(-4, 20);
+    meteor.yPos = Math.random() * 400 + 100;
+    meteor.angle = 45;
+    meteor.pathFunc = birdPaths.dive;
+    meteor.anims.play("meteor");
+
+    meteor.setActive(true).setVisible(true);
+  }
+
+  update() {
+    this.group.children.iterate((meteor) => {
+      meteor.setVelocityX(-200 - this.game.globalSpeed * 50);
+      meteor.y = meteor.pathFunc(meteor);
     });
   }
 }

@@ -1,4 +1,4 @@
-import { Player, BirdManager, GroundManager } from "./game.js";
+import { Player, BirdManager, GroundManager, MeteorManager } from "./game.js";
 import { Healthbar } from "./ui.js";
 
 /**
@@ -38,7 +38,6 @@ class Gameover extends Phaser.Scene {
 
   preload() {
     this.load.image("gameover", "assets/gameover.png");
-    this.cursor = this.input.keyboard.createCursorKeys();
   }
 
   create(data) {
@@ -50,10 +49,21 @@ class Gameover extends Phaser.Scene {
     this.player.setScale(2);
     this.player.play("death");
     this.playDeathAnimation = false;
+    this.showLeaderboard = false;
     this.time.addEvent({
       delay: 1000,
       loop: false,
       callback: () => (this.playDeathAnimation = true),
+    });
+
+    const currentScene = this;
+    this.input.keyboard.on("keydown", function (event) {
+      if (event.keyCode === Phaser.Input.Keyboard.KeyCodes.SPACE) {
+        if (currentScene.showLeaderboard) {
+          currentScene.scene.start("Game");
+          currentScene.scene.stop();
+        }
+      }
     });
   }
 
@@ -63,9 +73,10 @@ class Gameover extends Phaser.Scene {
       this.player.setVelocityY(-500);
       this.playDeathAnimation = false;
     }
-    if (this.cursor.left.isDown) {
-      this.scene.stop();
-      this.scene.start("Game");
+
+    if (this.player.y >= 800) {
+      this.player.y = 800;
+      this.showLeaderboard = true;
     }
   }
 }
@@ -86,6 +97,18 @@ class Game extends Phaser.Scene {
     this.load.image("cloud", "assets/background_cloud.png");
     this.load.image("cloud_2", "assets/background_cloud2.png");
     this.load.image("mountain", "assets/background_mountain.png");
+    this.load.spritesheet(
+      "metero_explosion",
+      "assets/meteor_explosion_sheet.png",
+      {
+        frameWidth: 64,
+        frameHeight: 64,
+      }
+    );
+    this.load.spritesheet("meteor", "assets/meteor_sheet.png", {
+      frameWidth: 16,
+      frameHeight: 32,
+    });
     this.load.image(
       "mountain_foreground",
       "assets/background_mountain_foreground.png"
@@ -134,17 +157,25 @@ class Game extends Phaser.Scene {
     this.birds = new BirdManager(this);
     this.player = new Player(this);
     this.healthbar = new Healthbar(this);
+    this.meteors = new MeteorManager(this);
     this.globalSpeed = 0;
     this.globalTileSpeed = 1;
 
     this.player.create();
     this.birds.create();
     this.healthbar.create();
+    this.meteors.create();
 
     this.time.addEvent({
       delay: 500,
       loop: true,
       callback: () => (this.scoreText.text = `Score: ${++this.currentScore}`),
+    });
+
+    this.time.addEvent({
+      delay: 1000,
+      loop: true,
+      callback: () => this.meteors.addMeteor(),
     });
 
     this.time.addEvent({
@@ -174,6 +205,23 @@ class Game extends Phaser.Scene {
         }
       }
     );
+
+    this.physics.world.addOverlap(
+      this.player.object,
+      this.meteors.group,
+      (player, _) => {
+        if (!player.invisibility) {
+          player.invisibility = true;
+          player.hit();
+          this.healthbar.draw(player.health);
+          console.group("Collision Player and meteor");
+          console.log("Collision detected!");
+          console.log("Player health: " + player.health);
+          console.groupEnd("Collision Player and meteor");
+        }
+      }
+    );
+
     const currentScene = this.scene;
     this.input.keyboard.on("keydown", function (event) {
       if (event.keyCode === Phaser.Input.Keyboard.KeyCodes.SPACE) {
@@ -183,6 +231,16 @@ class Game extends Phaser.Scene {
     });
 
     this.physics.add.collider(this.player.object, this.backgroundTile);
+    this.physics.add.collider(
+      this.meteors.group,
+      this.backgroundTile,
+      (_, meteor) => {
+        meteor.destroy();
+        this.add
+          .sprite(meteor.x, meteor.y, "metero_explosion")
+          .play("explosion");
+      }
+    );
   }
 
   update() {
@@ -197,6 +255,7 @@ class Game extends Phaser.Scene {
     this.backgroundTile.tilePositionX += this.globalTileSpeed;
     this.player.update();
     this.birds.update();
+    this.meteors.update();
     if (this.globalTileSpeed <= 10) {
       this.globalTileSpeed += this.globalSpeed * 0.00005;
     }
@@ -214,7 +273,7 @@ let config = {
     // The game's physics configuration
     default: "arcade",
     arcade: {
-      debug: false,
+      debug: true,
       isPaused: false,
     },
   },
