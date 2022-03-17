@@ -82,6 +82,14 @@ class Game extends Phaser.Scene {
 
   preload() {
     this.load.image("ground", "assets/background.png");
+    this.load.image("sky", "assets/background_sky.png");
+    this.load.image("cloud", "assets/background_cloud.png");
+    this.load.image("cloud_2", "assets/background_cloud2.png");
+    this.load.image("mountain", "assets/background_mountain.png");
+    this.load.image(
+      "mountain_foreground",
+      "assets/background_mountain_foreground.png"
+    );
     this.load.image("healthbarBorder", "assets/healthbar_border.png");
     this.load.image("healthbar", "assets/healthbar.png");
     this.load.spritesheet("bird", "assets/Bird.png", {
@@ -95,6 +103,29 @@ class Game extends Phaser.Scene {
   }
 
   create() {
+    this.backgroundSky = this.add.tileSprite(400, 300, 800, 600, "sky");
+    this.backgroundCloud = this.add.tileSprite(400, 300, 800, 600, "cloud");
+    this.backgroundForeground = this.add.tileSprite(
+      400,
+      300,
+      800,
+      600,
+      "cloud_2"
+    );
+    this.backgroundMountain = this.add.tileSprite(
+      400,
+      300,
+      800,
+      600,
+      "mountain"
+    );
+    this.backgroundMountainForeground = this.add.tileSprite(
+      400,
+      300,
+      800,
+      600,
+      "mountain_foreground"
+    );
     this.backgroundTile = this.add.tileSprite(400, 600, 800, 192, "ground");
     this.physics.add.existing(this.backgroundTile, true);
     this.currentScore = 0;
@@ -104,6 +135,7 @@ class Game extends Phaser.Scene {
     this.player = new Player(this);
     this.healthbar = new Healthbar(this);
     this.globalSpeed = 0;
+    this.globalTileSpeed = 1;
 
     this.player.create();
     this.birds.create();
@@ -116,7 +148,7 @@ class Game extends Phaser.Scene {
     });
 
     this.time.addEvent({
-      delay: 1000,
+      delay: 700,
       loop: true,
       callback: () => this.birds.addBird(),
     });
@@ -154,14 +186,19 @@ class Game extends Phaser.Scene {
   }
 
   update() {
-    if (this.player.object.health <= 0) {
-    }
-
+    this.backgroundSky.tilePositionX += 0.005 + this.globalTileSpeed * 0.05;
+    this.backgroundCloud.tilePositionX += 0.01 + this.globalTileSpeed * 0.05;
+    this.backgroundForeground.tilePositionX +=
+      0.02 + this.globalTileSpeed * 0.05;
+    this.backgroundMountain.tilePositionX +=
+      0.035 + this.globalTileSpeed * 0.05;
+    this.backgroundMountainForeground.tilePositionX +=
+      0.05 + this.globalTileSpeed * 0.05;
+    this.backgroundTile.tilePositionX += this.globalTileSpeed;
     this.player.update();
     this.birds.update();
-    let tileSpeed = 1 + this.globalSpeed;
-    if (tileSpeed <= 20) {
-      this.backgroundTile.tilePositionX += tileSpeed;
+    if (this.globalTileSpeed <= 10) {
+      this.globalTileSpeed += this.globalSpeed * 0.00005;
     }
   }
 }

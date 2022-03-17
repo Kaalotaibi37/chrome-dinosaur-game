@@ -13,7 +13,7 @@ export class Player extends Actor {
     this.object.setGravityY(850);
     this.object.x = 50;
     this.object.y = 450;
-    this.object.health = 4;
+    this.object.health = 10000;
     this.object.invisibilty = false;
     this.cursor.space.repeat = 1;
 
@@ -177,7 +177,7 @@ export class BirdManager {
   create() {
     this.group = this.game.physics.add.group({
       defaultKey: "bird",
-      maxSize: 7,
+      maxSize: 1,
       createCallback: (bird) => {
         bird.setName(`bird_${this.getLength()}`);
         console.log(`Spawned bird: ${bird.name}`);
@@ -196,6 +196,10 @@ export class BirdManager {
     const bird = this.group.get();
 
     if (!bird) return;
+
+    if (this.group.maxSize < 30) {
+      this.group.maxSize += Math.floor(this.game.globalSpeed * Math.random());
+    }
 
     bird.setSize(25, 20);
 
@@ -241,7 +245,7 @@ export class BirdManager {
 
   update() {
     this.group.children.iterate((bird) => {
-      bird.setVelocityX(-200 - this.game.globalSpeed * 20);
+      bird.setVelocityX(-200 - this.game.globalSpeed * 30);
       bird.y = bird.pathFunc(bird);
       if (bird.x < 0 || bird.y > 495) {
         this.group.killAndHide(bird);
