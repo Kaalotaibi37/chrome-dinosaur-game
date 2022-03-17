@@ -26,17 +26,18 @@ export class Player extends Actor {
     this.currentState = this.state.RUN;
 
     this.object.hit = () => {
+      this.game.cameras.main.shake(100, 0.008);
       this.object.health -= 1;
 
       this.game.time.addEvent({
-        delay: 1000,
+        delay: 1400,
         loop: false,
         callback: () => (this.object.invisibility = false),
       });
 
       this.game.time.addEvent({
         delay: 200,
-        repeat: 5,
+        repeat: 7,
         callback: () => {
           this.object.setVisible(!this.object.visible);
         },
@@ -145,7 +146,11 @@ export class Player extends Actor {
       }
       case this.state.DEAD: {
         player.setVisible(false);
-        this.game.scene.launch("Gameover", [player.x, player.y]);
+        this.game.scene.launch("Gameover", [
+          player.x,
+          player.y,
+          this.game.currentScore,
+        ]);
         this.game.scene.pause();
         break;
       }

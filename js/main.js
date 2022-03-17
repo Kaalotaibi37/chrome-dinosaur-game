@@ -1,5 +1,5 @@
 import { Player, BirdManager, GroundManager, MeteorManager } from "./game.js";
-import { Healthbar } from "./ui.js";
+import { Healthbar, Leaderboard } from "./ui.js";
 
 /**
  * The game's pause screen.
@@ -37,12 +37,11 @@ class Gameover extends Phaser.Scene {
   }
 
   preload() {
-    this.load.image("gameover", "assets/gameover.png");
+    this.load.image("leaderboard", "assets/leaderboard.png");
   }
 
   create(data) {
-    console.log("Passed data: ", data);
-    this.add.sprite(400, 300, "gameover");
+    this.leaderboard = new Leaderboard(this);
     this.player = this.physics.add.sprite(52, 58, "player");
     this.player.x = data[0];
     this.player.y = data[1];
@@ -55,6 +54,8 @@ class Gameover extends Phaser.Scene {
       loop: false,
       callback: () => (this.playDeathAnimation = true),
     });
+
+    this.leaderboard.create(data[2], Phaser);
 
     const currentScene = this;
     this.input.keyboard.on("keydown", function (event) {
@@ -78,6 +79,8 @@ class Gameover extends Phaser.Scene {
       this.player.y = 800;
       this.showLeaderboard = true;
     }
+
+    this.leaderboard.update(this.showLeaderboard);
   }
 }
 
@@ -97,6 +100,22 @@ class Game extends Phaser.Scene {
     this.load.image("cloud", "assets/background_cloud.png");
     this.load.image("cloud_2", "assets/background_cloud2.png");
     this.load.image("mountain", "assets/background_mountain.png");
+    this.load.spritesheet("loading", "assets/loading_spinner.png", {
+      frameWidth: 200,
+      frameHeight: 200,
+    });
+    this.load.spritesheet("spacebar", "assets/SPACEALTERNATIVE.png", {
+      frameWidth: 98,
+      frameHeight: 21,
+    });
+    this.load.spritesheet("arrow_up", "assets/ARROWUP.png", {
+      frameWidth: 19,
+      frameHeight: 21,
+    });
+    this.load.spritesheet("arrow_down", "assets/ARROWDOWN.png", {
+      frameWidth: 19,
+      frameHeight: 21,
+    });
     this.load.spritesheet(
       "metero_explosion",
       "assets/meteor_explosion_sheet.png",
@@ -153,7 +172,6 @@ class Game extends Phaser.Scene {
     this.physics.add.existing(this.backgroundTile, true);
     this.currentScore = 0;
     this.scoreText = this.add.text(690, 30, "Score: 0");
-    console.log(this.backgroundTile);
     this.birds = new BirdManager(this);
     this.player = new Player(this);
     this.healthbar = new Healthbar(this);
@@ -267,13 +285,14 @@ let config = {
   type: Phaser.AUTO, // Tell phaser to choose either Canvas or WebGL for rendering
   width: 800,
   height: 600,
+  transparent: true,
   pixelArt: true, // Disables anti aliasing for sharper pixels.
   canvas: document.getElementById("myCanvas"), // Let the framework to choose my own Canvas
   physics: {
     // The game's physics configuration
     default: "arcade",
     arcade: {
-      debug: true,
+      debug: false,
       isPaused: false,
     },
   },
