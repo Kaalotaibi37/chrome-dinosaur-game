@@ -4,10 +4,23 @@ export class Meteors {
   create(scene) {
     this.group = scene.physics.add.group({
       defaultKey: "meteor",
-      maxSize: 5,
+      maxSize: 4,
     });
 
+    this.meteorType = {
+      SMALL: "small",
+      LARGE: "large",
+    };
+
+    this.explosionObject = null;
     this.spawnSound = scene.sound.add("meteor");
+    this.spawnSoundLarge = scene.sound.add("meteorLarge");
+    scene.physics.add.collider(this.group, scene.ground, (_, meteor) => {
+      if (this.explosionObject) {
+        this.explosionObject.addExplosion(meteor.x, meteor.y, meteor.modScale);
+      }
+      meteor.destroy();
+    });
 
     scene.anims.create({
       key: "meteor",
@@ -19,17 +32,6 @@ export class Meteors {
       repeat: -1,
     });
 
-    scene.anims.create({
-      key: "explosion",
-      frames: scene.anims.generateFrameNumbers("metero_explosion", {
-        start: 0,
-        end: 6,
-      }),
-      frameRate: 60,
-      repeat: 0,
-      hideOnComplete: true,
-    });
-
     scene.time.addEvent({
       delay: 1000,
       loop: true,
@@ -38,25 +40,45 @@ export class Meteors {
   }
 
   addMeteor() {
-    let spawnRate = Math.random() * 10;
+    const die_1 = Math.floor(Math.random() * 8 + 1);
+    const die_2 = Math.floor(Math.random() * 8 + 1);
+    const spawnRate = die_1 + die_2;
 
-    if (spawnRate > 3) return;
+    let currentType = null;
+    if (spawnRate >= 16) {
+      currentType = this.meteorType.LARGE;
+    } else if (spawnRate >= 12) {
+      currentType = this.meteorType.SMALL;
+    }
+
+    if (!currentType) return;
 
     const meteor = this.group.get();
 
     if (!meteor) return;
 
-    this.spawnSound.play();
-    meteor.explode = false;
     meteor.x = 800;
     meteor.setSize(8, 8);
     meteor.setOffset(-4, 20);
+    switch (currentType) {
+      case this.meteorType.SMALL:
+        meteor.modScale = 1;
+        this.spawnSound.play();
+        break;
+      case this.meteorType.LARGE: {
+        meteor.modScale = 3;
+        meteor.setScale(3);
+        this.spawnSoundLarge.play();
+      }
+      default:
+        break;
+    }
     meteor.yPos = Math.random() * 400 + 100;
     meteor.angle = 45;
     meteor.pathFunc = paths.dive;
     meteor.anims.play("meteor");
 
-    meteor.setName("Meteor_" + "WIP");
+    meteor.setName("Meteor_" + currentType);
     meteor.setActive(true).setVisible(true);
   }
 

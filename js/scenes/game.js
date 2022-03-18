@@ -31,9 +31,8 @@ export class Game extends Phaser.Scene {
     this.globalTileSpeed = 1;
 
     this.parallaxBackground.create(this);
-
-    this.backgroundTile = this.add.tileSprite(400, 600, 800, 192, "ground");
-    this.physics.add.existing(this.backgroundTile, true);
+    this.ground = this.add.tileSprite(400, 600, 800, 192, "ground");
+    this.physics.add.existing(this.ground, true);
 
     this.entitiyManager.create(this);
     this.player.create(this);
@@ -80,21 +79,7 @@ export class Game extends Phaser.Scene {
       );
     });
 
-    this.physics.add.collider(this.player.object, this.backgroundTile);
-    this.physics.add.collider(
-      this.entitiyManager.entities.meteors.group,
-      this.backgroundTile,
-      (_, meteor) => {
-        this.explosionSound.play({
-          volume: 0.2,
-          rate: 2,
-        });
-        meteor.destroy();
-        this.add
-          .sprite(meteor.x, meteor.y, "metero_explosion")
-          .play("explosion");
-      }
-    );
+    this.physics.add.collider(this.player.object, this.ground);
 
     const currentScene = this;
     const playPauseSound = this.pauseSound;
@@ -109,7 +94,7 @@ export class Game extends Phaser.Scene {
   }
 
   update() {
-    this.backgroundTile.tilePositionX += this.globalTileSpeed;
+    this.ground.tilePositionX += this.globalTileSpeed;
 
     this.parallaxBackground.update(this);
     this.player.update(this);

@@ -81,6 +81,7 @@ export class Preload extends Phaser.Scene {
     this.load.audio("pause", "assets/audio/pause.wav");
     this.load.audio("meteor", "assets/audio/meteor.wav");
     this.load.audio("explosion", "assets/audio/explosion.wav");
+    this.load.audio("meteorLarge", "assets/audio/meteor_large.wav");
 
     this.load.spritesheet("loading", "assets/loading_spinner.png", {
       frameWidth: 200,
