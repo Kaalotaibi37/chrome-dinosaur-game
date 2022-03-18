@@ -9,7 +9,7 @@ export class Player {
     this.object.setGravityY(850);
     this.object.x = 50;
     this.object.y = 450;
-    this.object.health = 4;
+    this.object.health = 400;
     this.object.invisibilty = false;
     this.cursor.space.repeat = 1;
 
@@ -92,7 +92,7 @@ export class Player {
     player.setVelocityX(0);
 
     if (player.anims.msPerFrame > this.maxAnimationThreshHold) {
-      player.anims.msPerFrame = 100 - 10 * scene.globalSpeed;
+      player.anims.msPerFrame = 100 - scene.distance * 0.5;
     } else {
       player.anims.msPerFrame = this.maxAnimationThreshHold;
     }
@@ -135,6 +135,8 @@ export class Player {
         break;
       }
       case this.state.JUMP: {
+        player.setSize(13, 30);
+        player.setOffset(22, 19);
         if (player.y >= 448) {
           this.currentState = this.state.RUN;
         }

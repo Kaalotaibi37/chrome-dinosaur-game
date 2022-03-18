@@ -13,7 +13,7 @@ export class Meteors {
     };
 
     this.spawnMod = 0;
-    this.spawnModThreshHold = 4;
+    this.spawnModThreshHold = 6;
     this.explosionObject = null;
     this.spawnSound = scene.sound.add("meteor");
     this.spawnSoundLarge = scene.sound.add("meteorLarge");

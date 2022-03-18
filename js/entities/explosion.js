@@ -41,18 +41,29 @@ export class Explosion {
     const explosion = this.group.get(x, y);
     explosion.setName("Explosion_scale_" + scale);
     explosion.setScale(scale * 2);
-    explosion.setSize(0, 0);
+
+    const reset = () => {
+      explosion.setSize(1, 1);
+      explosion.setOffset(1000, 1000);
+    };
+
+    reset();
 
     this.scene.time.addEvent({
-      delay: 250,
+      delay: 400,
+      loop: false,
+      callback: reset,
+    });
+    this.scene.time.addEvent({
+      delay: 300,
       loop: false,
       callback: () => {
         if (scale >= 3) {
-          explosion.setSize(40, 30);
-          explosion.setOffset(12, 20);
+          explosion.setSize(30, 30);
+          explosion.setOffset(17, 20);
         } else {
           explosion.setSize(30, 20);
-          explosion.setOffset(17, 20);
+          explosion.setOffset(17, 25);
         }
       },
     });
