@@ -135,7 +135,7 @@ export class Player {
         break;
       }
       case this.state.JUMP: {
-        if (player.y >= 439) {
+        if (player.y >= 448) {
           this.currentState = this.state.RUN;
         }
         break;
@@ -143,14 +143,13 @@ export class Player {
       case this.state.DEAD: {
         scene.sound.stopAll();
         player.setVisible(false);
-        scene.scene.launch("Gameover", [
-          player.x,
-          player.y,
-          scene.currentScore,
-        ]);
+        scene.scene.launch("Gameover", [player.x, player.y, scene.distance]);
         scene.scene.pause();
         break;
       }
+    }
+    if (player.y > 448) {
+      player.y = 448;
     }
   }
 }

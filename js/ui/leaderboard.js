@@ -1,46 +1,31 @@
 export class Leaderboard {
-  create(scene, score, phaser) {
+  create(scene, score) {
     this.finalPosition = 250;
     this.alpha = 0;
     this.lerp = (value_0, value_1, value_t) => {
       return (1 - value_t) * value_0 + value_t * value_1;
     };
-    let tempContent = [
-      "mssalkhalifah ... " + score,
-      "mssalkhalifah ... " + score,
-      "mssalkhalifah ... " + score,
-      "mssalkhalifah ... " + score,
-      "mssalkhalifah ... " + score,
-      "mssalkhalifah ... " + score,
-      "mssalkhalifah ... " + score,
-      "mssalkhalifah ... " + score,
-      "mssalkhalifah ... " + score,
-      "mssalkhalifah ... " + score,
-      "mssalkhalifah ... " + score,
-      "mssalkhalifah ... " + score,
-      "mssalkhalifah ... " + score,
-      "mssalkhalifah ... " + score,
-      "mssalkhalifah ... " + score,
-      "mssalkhalifah ... " + score,
-      "mssalkhalifah ... " + score,
-      "mssalkhalifah ... " + score,
-      "mssalkhalifah ... " + score,
-      "mssalkhalifah ... " + score,
-      "mssalkhalifah ... " + score,
-      "mssalkhalifah ... " + score,
-      "mssalkhalifah ... " + score,
-      "mssalkhalifah ... " + score,
-      "mssalkhalifah ... " + score,
-      "mssalkhalifah ... " + score,
-      "mssalkhalifah ... " + score,
-      "mssalkhalifah ... " + score,
-      "mssalkhalifah ... " + score,
-      "mssalkhalifah ... " + score,
+
+    let scores = [
+      ["You", score],
+      ["mssalkhalifah", Math.floor(Math.random() * 250)],
+      ["Kaalotaibi37", Math.floor(Math.random() * 250)],
+      ["Mass-99", Math.floor(Math.random() * 250)],
+      ["Cheese Lord", Math.floor(Math.random() * 250)],
+      ["YUsef68", Math.floor(Math.random() * 250)],
+      ["A5ma5deen", Math.floor(Math.random() * 250)],
+      ["Fozan-123", Math.floor(Math.random() * 250)],
+      ["( ͡° ͜ʖ ͡°)L", Math.floor(Math.random() * 1000)],
     ];
 
+    scores.sort((value1, value2) => value2[1] - value1[1]);
+    let leaderboardContent = scores.map(
+      (value) => `${value[0]} ... ${value[1]}`
+    );
+
     let graphics = scene.make.graphics();
-    graphics.fillRect(152, 133, 340, 320);
-    let mask = new phaser.Display.Masks.GeometryMask(scene, graphics);
+    graphics.fillRect(152, 133, 360, 320);
+    let mask = new Phaser.Display.Masks.GeometryMask(scene, graphics);
 
     this.score = score;
     this.leaderboard = scene.add.sprite(400, -250, "leaderboard");
@@ -62,7 +47,7 @@ export class Leaderboard {
     this.loadingSpinner = scene.add.sprite(400, -250, "loading");
     this.loadingSpinner.setAlpha(0, 0, 0, 0);
 
-    this.text = scene.add.text(300, 120, tempContent).setOrigin(0);
+    this.text = scene.add.text(300, 140, leaderboardContent).setOrigin(0);
     this.text.setMask(mask);
     this.text.setAlpha(0, 0, 0, 0);
 
@@ -121,25 +106,25 @@ export class Leaderboard {
     const arrowUp = this.arrow_up;
 
     scene.input.keyboard.on("keyup", function (event) {
-      if (event.keyCode === phaser.Input.Keyboard.KeyCodes.DOWN) {
+      if (event.keyCode === Phaser.Input.Keyboard.KeyCodes.DOWN) {
         arrowDown.play("arrow_down_release");
       }
     });
     scene.input.keyboard.on("keyup", function (event) {
-      if (event.keyCode === phaser.Input.Keyboard.KeyCodes.UP) {
+      if (event.keyCode === Phaser.Input.Keyboard.KeyCodes.UP) {
         arrowUp.play("arrow_up_release");
       }
     });
     scene.input.keyboard.on("keydown", function (event) {
-      if (event.keyCode === phaser.Input.Keyboard.KeyCodes.DOWN) {
+      if (event.keyCode === Phaser.Input.Keyboard.KeyCodes.DOWN) {
         leaderboardValue.y -= 10;
         arrowDown.play("arrow_down_hold");
       }
       console.log(leaderboardValue.y);
     });
     scene.input.keyboard.on("keydown", function (event) {
-      if (event.keyCode === phaser.Input.Keyboard.KeyCodes.UP) {
-        if (leaderboardValue.y < 120) {
+      if (event.keyCode === Phaser.Input.Keyboard.KeyCodes.UP) {
+        if (leaderboardValue.y < 140) {
           leaderboardValue.y += 10;
           arrowUp.play("arrow_up_hold");
         }

@@ -72,6 +72,8 @@ export class Preload extends Phaser.Scene {
     this.load.image("mountain", "assets/background_mountain.png");
     this.load.image("leaderboard", "assets/leaderboard.png");
     this.load.image("pause", "assets/pause.png");
+    this.load.image("block", "assets/block.png");
+    this.load.image("blockLarge", "assets/block_large.png");
 
     this.load.audio("lostLife", "assets/audio/lost_life.wav");
     this.load.audio("overworld", "assets/audio/overworld.mp3");

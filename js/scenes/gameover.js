@@ -12,6 +12,8 @@ export class Gameover extends Phaser.Scene {
 
   create(data) {
     this.leaderboard = new Leaderboard();
+    this.leaderboard.create(this, data[2]);
+
     this.player = this.physics.add.sprite(52, 58, "player");
 
     this.lostLifeAudio = this.sound.add("lostLife");

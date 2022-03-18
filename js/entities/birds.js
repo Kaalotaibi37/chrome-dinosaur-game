@@ -69,9 +69,14 @@ export class Birds {
       }
       default: {
         const y = [
-          435,
-          435,
+          425,
+          425,
+          425,
+          425,
           480,
+          Math.random() * 330 + 100,
+          Math.random() * 330 + 100,
+          Math.random() * 330 + 100,
           Math.random() * 330 + 100,
           Math.random() * 330 + 100,
           Math.random() * 330 + 100,
