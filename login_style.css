@@ -84,21 +84,29 @@ width: 100#;
   font-size: 1rem
   letter-spacing: 1px;
   outline: none;
-  /*text-transform: uppercase;*/
   padding: 10px 20px;
-  /* margin-left: auto; */
   line-height:1.1em;
   width:300px;
   height:50px;
   margin-top: 30px
 }
 #reg{
+  color: #90EE90;
   float: left;
   margin-bottom: 15px;
+  text-decoration: none;
+}
+#reg:hover{
+  text-decoration: underline;
 }
 #forg{
+  color: #90EE90;
   float: right;
   margin-bottom: 15px;
+  text-decoration: none;
+}
+#forg:hover{
+  text-decoration: underline;
 }
 #register{
   align-items: center;
