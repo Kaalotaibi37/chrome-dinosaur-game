@@ -7,6 +7,8 @@ class Actor {
 export class Player extends Actor {
   create() {
     this.cursor = this.game.input.keyboard.createCursorKeys();
+    this.jumpSound = this.game.sound.add("jump");
+    this.hitSound = this.game.sound.add("hit");
     this.object = this.game.physics.add.sprite(52, 58, "player");
     this.object.setScale(2);
     this.object.setCollideWorldBounds(true);
@@ -26,6 +28,7 @@ export class Player extends Actor {
     this.currentState = this.state.RUN;
 
     this.object.hit = () => {
+      this.hitSound.play();
       this.game.cameras.main.shake(100, 0.008);
       this.object.health -= 1;
 
@@ -81,8 +84,8 @@ export class Player extends Actor {
           16, 15, 16, 15, 16, 15, 16, 15, 16, 15, 16, 15, 16, 15, 16,
         ],
       }),
-      delay: 1000,
-      frameRate: 10,
+      delay: 700,
+      frameRate: 12,
       repeat: 0,
     });
 
@@ -122,6 +125,7 @@ export class Player extends Actor {
         if (this.cursor.up.isDown) {
           player.anims.play("jump");
           player.setVelocityY(-550);
+          this.jumpSound.play();
           this.currentState = this.state.JUMP;
         }
         if (this.cursor.down.isDown) {
@@ -145,6 +149,7 @@ export class Player extends Actor {
         break;
       }
       case this.state.DEAD: {
+        this.game.sound.stopAll();
         player.setVisible(false);
         this.game.scene.launch("Gameover", [
           player.x,
@@ -269,6 +274,8 @@ export class MeteorManager extends Actor {
       maxSize: 5,
     });
 
+    this.spawnSound = this.game.sound.add("meteor");
+
     this.game.anims.create({
       key: "meteor",
       frames: this.game.anims.generateFrameNumbers("meteor", {
@@ -300,6 +307,7 @@ export class MeteorManager extends Actor {
 
     if (!meteor) return;
 
+    this.spawnSound.play();
     meteor.explode = false;
     meteor.x = 800;
     meteor.setSize(8, 8);

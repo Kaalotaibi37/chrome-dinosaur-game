@@ -14,11 +14,12 @@ class Pause extends Phaser.Scene {
   preload() {
     this.load.image("pause", "assets/pause.png");
   }
-  create() {
+  create(sound) {
     this.add.sprite(400, 300, "pause");
     const currentScene = this.scene;
     this.input.keyboard.on("keydown", function (event) {
       if (event.keyCode === Phaser.Input.Keyboard.KeyCodes.SPACE) {
+        sound.resumeAll();
         currentScene.resume("Game");
         currentScene.stop();
       }
@@ -43,6 +44,10 @@ class Gameover extends Phaser.Scene {
   create(data) {
     this.leaderboard = new Leaderboard(this);
     this.player = this.physics.add.sprite(52, 58, "player");
+
+    this.lostLifeAudio = this.sound.add("lostLife");
+    this.lostLifeAudio.play();
+
     this.player.x = data[0];
     this.player.y = data[1];
     this.player.setScale(2);
@@ -50,7 +55,7 @@ class Gameover extends Phaser.Scene {
     this.playDeathAnimation = false;
     this.showLeaderboard = false;
     this.time.addEvent({
-      delay: 1000,
+      delay: 700,
       loop: false,
       callback: () => (this.playDeathAnimation = true),
     });
@@ -100,6 +105,14 @@ class Game extends Phaser.Scene {
     this.load.image("cloud", "assets/background_cloud.png");
     this.load.image("cloud_2", "assets/background_cloud2.png");
     this.load.image("mountain", "assets/background_mountain.png");
+    this.load.audio("lostLife", "assets/audio/lost_life.wav");
+    this.load.audio("overworld", "assets/audio/overworld.mp3");
+    this.load.audio("overworld_2", "assets/audio/overworld_2.mp3");
+    this.load.audio("hit", "assets/audio/hit.wav");
+    this.load.audio("jump", "assets/audio/jump.wav");
+    this.load.audio("pause", "assets/audio/pause.wav");
+    this.load.audio("meteor", "assets/audio/meteor.wav");
+    this.load.audio("explosion", "assets/audio/explosion.wav");
     this.load.spritesheet("loading", "assets/loading_spinner.png", {
       frameWidth: 200,
       frameHeight: 200,
@@ -145,6 +158,10 @@ class Game extends Phaser.Scene {
   }
 
   create() {
+    this.pauseSound = this.sound.add("pause");
+    this.explosionSound = this.sound.add("explosion");
+    this.backgroundSound_1 = this.sound.add("overworld");
+    this.backgroundSound_2 = this.sound.add("overworld_2");
     this.backgroundSky = this.add.tileSprite(400, 300, 800, 600, "sky");
     this.backgroundCloud = this.add.tileSprite(400, 300, 800, 600, "cloud");
     this.backgroundForeground = this.add.tileSprite(
@@ -240,11 +257,14 @@ class Game extends Phaser.Scene {
       }
     );
 
-    const currentScene = this.scene;
+    const currentScene = this;
+    const playPauseSound = this.pauseSound;
     this.input.keyboard.on("keydown", function (event) {
       if (event.keyCode === Phaser.Input.Keyboard.KeyCodes.SPACE) {
-        currentScene.launch("Pause");
-        currentScene.pause();
+        currentScene.sound.pauseAll();
+        playPauseSound.play();
+        currentScene.scene.launch("Pause", currentScene.sound);
+        currentScene.scene.pause();
       }
     });
 
@@ -253,12 +273,25 @@ class Game extends Phaser.Scene {
       this.meteors.group,
       this.backgroundTile,
       (_, meteor) => {
+        this.explosionSound.play({
+          volume: 0.2,
+          rate: 2,
+        });
         meteor.destroy();
         this.add
           .sprite(meteor.x, meteor.y, "metero_explosion")
           .play("explosion");
       }
     );
+
+    this.time.addEvent({
+      delay: 79200,
+      loop: false,
+      callback: () => this.backgroundSound_2.play({ volume: 0.5 }),
+    });
+    this.backgroundSound_1.play({
+      volume: 0.5,
+    });
   }
 
   update() {
