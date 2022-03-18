@@ -18,6 +18,7 @@ export class Explosion {
     this.explosionSound = scene.sound.add("explosion");
     this.explosionSoundLarge = scene.sound.add("explosion");
     this.mainCamera = scene.cameras.main;
+    this.scene = scene;
   }
 
   addExplosion(x, y, scale) {
@@ -40,7 +41,22 @@ export class Explosion {
     const explosion = this.group.get(x, y);
     explosion.setName("Explosion_scale_" + scale);
     explosion.setScale(scale * 2);
-    explosion.setOffset(15, 10);
+    explosion.setSize(0, 0);
+
+    this.scene.time.addEvent({
+      delay: 250,
+      loop: false,
+      callback: () => {
+        if (scale >= 3) {
+          explosion.setSize(40, 30);
+          explosion.setOffset(12, 20);
+        } else {
+          explosion.setSize(30, 20);
+          explosion.setOffset(17, 20);
+        }
+      },
+    });
+
     explosion.play("explosion");
     explosion.once("animationcomplete", () => {
       console.log("Explosion finished");

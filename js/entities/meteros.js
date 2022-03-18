@@ -44,7 +44,7 @@ export class Meteors {
   addMeteor() {
     const die_1 = Math.floor(Math.random() * 8 + 1);
     const die_2 = Math.floor(Math.random() * 8 + 1);
-    const spawnRate = (die_1 + die_2) * this.spawnMod;
+    const spawnRate = (die_1 + die_2) * this.spawnMod * 100;
 
     let currentType = null;
     if (spawnRate >= 40) {
