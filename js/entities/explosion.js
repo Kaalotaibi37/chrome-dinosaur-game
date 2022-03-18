@@ -38,7 +38,7 @@ export class Explosion {
     }
 
     const explosion = this.group.get(x, y);
-    explosion.setName("Explosion_" + "WIP");
+    explosion.setName("Explosion_scale_" + scale);
     explosion.setScale(scale * 2);
     explosion.setOffset(15, 10);
     explosion.play("explosion");

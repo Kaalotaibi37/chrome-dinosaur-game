@@ -4,7 +4,7 @@ export class Meteors {
   create(scene) {
     this.group = scene.physics.add.group({
       defaultKey: "meteor",
-      maxSize: 4,
+      maxSize: 3,
     });
 
     this.meteorType = {
@@ -12,6 +12,8 @@ export class Meteors {
       LARGE: "large",
     };
 
+    this.spawnMod = 0;
+    this.spawnModThreshHold = 4;
     this.explosionObject = null;
     this.spawnSound = scene.sound.add("meteor");
     this.spawnSoundLarge = scene.sound.add("meteorLarge");
@@ -42,12 +44,12 @@ export class Meteors {
   addMeteor() {
     const die_1 = Math.floor(Math.random() * 8 + 1);
     const die_2 = Math.floor(Math.random() * 8 + 1);
-    const spawnRate = die_1 + die_2;
+    const spawnRate = (die_1 + die_2) * this.spawnMod;
 
     let currentType = null;
-    if (spawnRate >= 16) {
+    if (spawnRate >= 40) {
       currentType = this.meteorType.LARGE;
-    } else if (spawnRate >= 12) {
+    } else if (spawnRate >= 18) {
       currentType = this.meteorType.SMALL;
     }
 
@@ -56,6 +58,12 @@ export class Meteors {
     const meteor = this.group.get();
 
     if (!meteor) return;
+
+    console.group("Meteor spawn");
+    console.log("Type: " + currentType);
+    console.log("Spawn mod: " + this.spawnMod);
+    console.log("Spawn rate: " + spawnRate);
+    console.groupEnd("Meteor spawn");
 
     meteor.x = 800;
     meteor.setSize(8, 8);
@@ -83,8 +91,11 @@ export class Meteors {
   }
 
   update(scene) {
+    if (this.spawnMod < this.spawnModThreshHold) {
+      this.spawnMod = scene.distance * 0.03;
+    }
     this.group.children.iterate((meteor) => {
-      meteor.setVelocityX(-200 - scene.globalSpeed * 50);
+      meteor.setVelocityX(-200 + meteor.modScale * 30);
       meteor.y = meteor.pathFunc(meteor);
     });
   }

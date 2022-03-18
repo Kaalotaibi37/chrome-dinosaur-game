@@ -15,7 +15,7 @@ let config = {
     // The game's physics configuration
     default: "arcade",
     arcade: {
-      debug: true,
+      debug: false,
       isPaused: false,
     },
   },

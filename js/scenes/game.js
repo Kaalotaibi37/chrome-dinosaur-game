@@ -31,7 +31,7 @@ export class Game extends Phaser.Scene {
     this.ground = this.add.tileSprite(400, 600, 800, 192, "ground");
     this.physics.add.existing(this.ground, true);
 
-    this.currentScore = 0;
+    this.distance = 0;
     this.scoreText = this.add.text(690, 30, "Score: 0");
 
     this.entitiyManager.create(this);
@@ -41,13 +41,9 @@ export class Game extends Phaser.Scene {
     this.time.addEvent({
       delay: 500,
       loop: true,
-      callback: () => (this.scoreText.text = `Score: ${++this.currentScore}`),
-    });
-
-    this.time.addEvent({
-      delay: 1000,
-      loop: true,
-      callback: () => (this.globalSpeed += 0.05),
+      callback: () => {
+        this.scoreText.text = `Score: ${++this.distance}`;
+      },
     });
 
     this.time.addEvent({
@@ -100,8 +96,8 @@ export class Game extends Phaser.Scene {
     this.player.update(this);
     this.entitiyManager.update(this);
 
-    if (this.globalTileSpeed <= 10) {
-      this.globalTileSpeed += this.globalSpeed * 0.00005;
+    if (this.globalTileSpeed <= 5 && this.distance % 20 == 0) {
+      this.globalTileSpeed += 0.005;
     }
   }
 }

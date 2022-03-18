@@ -9,7 +9,7 @@ export class Player {
     this.object.setGravityY(850);
     this.object.x = 50;
     this.object.y = 450;
-    this.object.health = 400;
+    this.object.health = 4;
     this.object.invisibilty = false;
     this.cursor.space.repeat = 1;
 
