@@ -285,7 +285,7 @@ class Game extends Phaser.Scene {
     );
 
     this.time.addEvent({
-      delay: 79200,
+      delay: 92000,
       loop: false,
       callback: () => this.backgroundSound_2.play({ volume: 0.5 }),
     });
