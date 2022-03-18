@@ -19,9 +19,6 @@ export class Game extends Phaser.Scene {
     this.backgroundSound_1 = this.sound.add("overworld");
     this.backgroundSound_2 = this.sound.add("overworld_2");
 
-    this.currentScore = 0;
-    this.scoreText = this.add.text(690, 30, "Score: 0");
-
     this.parallaxBackground = new ParallaxBackground();
     this.entitiyManager = new EntitiesManager();
     this.player = new Player();
@@ -33,6 +30,9 @@ export class Game extends Phaser.Scene {
     this.parallaxBackground.create(this);
     this.ground = this.add.tileSprite(400, 600, 800, 192, "ground");
     this.physics.add.existing(this.ground, true);
+
+    this.currentScore = 0;
+    this.scoreText = this.add.text(690, 30, "Score: 0");
 
     this.entitiyManager.create(this);
     this.player.create(this);
