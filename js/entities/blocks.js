@@ -13,17 +13,26 @@ export class Blocks {
   addBlock(scene) {
     const die_1 = Math.floor(Math.random() * 14 + 1);
 
-    if (die_1 <= 5) {
-      const die_2 = Math.floor(Math.random() * 6 + 1);
+    if (die_1 <= 100) {
+      const die_2 = Math.floor(Math.random() * 8 + 1);
 
       let block = null;
-      if (die_2 >= 6) {
-        block = this.group.get(1000, 472, "blockLarge");
-      } else if (die_2 >= 4) {
-        block = this.group.get(1000, 472, "block");
-      }
 
-      if (!block) return;
+      if (die_2 <= 1) {
+        block = this.group.get(1000, 387, "blockLarge");
+        if (!block) return;
+        block.setOrigin(0, 0);
+        block.setSize(101, 110);
+        block.setOffset(9, 10);
+      } else if (die_2 >= 7) {
+        block = this.group.get(1000, 444, "block");
+        if (!block) return;
+        block.setOrigin(0, 0);
+        block.setSize(49, 46);
+        block.setOffset(7, 13);
+      } else {
+        return;
+      }
 
       block.setName("Block_" + "WIP");
 
