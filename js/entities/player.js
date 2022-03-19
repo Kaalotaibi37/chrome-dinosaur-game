@@ -88,7 +88,7 @@ export class Player {
   }
 
   update(scene) {
-    let player = this.object;
+    const player = this.object;
     player.setVelocityX(0);
 
     if (player.anims.msPerFrame > this.maxAnimationThreshHold) {
