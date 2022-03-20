@@ -1,12 +1,13 @@
+/* eslint-disable no-undef */
 export class Leaderboard {
-  create(scene, score) {
+  create (scene, score) {
     this.finalPosition = 250
     this.alpha = 0
-    this.lerp = (value_0, value_1, value_t) => {
-      return (1 - value_t) * value_0 + value_t * value_1
+    this.lerp = (value0, value1, t) => {
+      return (1 - t) * value0 + t * value1
     }
 
-    let scores = [
+    const scores = [
       ['You', score],
       ['mssalkhalifah', Math.floor(Math.random() * 250)],
       ['Kaalotaibi37', Math.floor(Math.random() * 250)],
@@ -15,17 +16,17 @@ export class Leaderboard {
       ['YUsef68', Math.floor(Math.random() * 250)],
       ['A5ma5deen', Math.floor(Math.random() * 250)],
       ['Fozan-123', Math.floor(Math.random() * 250)],
-      ['( ͡° ͜ʖ ͡°)L', Math.floor(Math.random() * 1000)],
+      ['( ͡° ͜ʖ ͡°)L', Math.floor(Math.random() * 1000)]
     ]
 
     scores.sort((value1, value2) => value2[1] - value1[1])
-    let leaderboardContent = scores.map(
+    const leaderboardContent = scores.map(
       (value) => `${value[0]} ... ${value[1]}`
     )
 
-    let graphics = scene.make.graphics()
+    const graphics = scene.make.graphics()
     graphics.fillRect(152, 133, 360, 320)
-    let mask = new Phaser.Display.Masks.GeometryMask(scene, graphics)
+    const mask = new Phaser.Display.Masks.GeometryMask(scene, graphics)
 
     this.score = score
     this.leaderboard = scene.add.sprite(400, -250, 'leaderboard')
@@ -57,10 +58,10 @@ export class Leaderboard {
       key: 'loading',
       frames: scene.anims.generateFrameNumbers('loading', {
         start: 0,
-        end: 29,
+        end: 29
       }),
       frameRate: 60,
-      repeat: -1,
+      repeat: -1
     })
 
     this.loadingSpinner.play('loading')
@@ -68,37 +69,37 @@ export class Leaderboard {
     scene.anims.create({
       key: 'arrow_down_hold',
       frames: scene.anims.generateFrameNumbers('arrow_down', {
-        frames: [1],
+        frames: [1]
       }),
       frameRate: 10,
-      repeat: 0,
+      repeat: 0
     })
 
     scene.anims.create({
       key: 'arrow_down_release',
       frames: scene.anims.generateFrameNumbers('arrow_down', {
-        frames: [1, 2, 0],
+        frames: [1, 2, 0]
       }),
       frameRate: 24,
-      repeat: 0,
+      repeat: 0
     })
 
     scene.anims.create({
       key: 'arrow_up_hold',
       frames: scene.anims.generateFrameNumbers('arrow_up', {
-        frames: [1],
+        frames: [1]
       }),
       frameRate: 10,
-      repeat: 0,
+      repeat: 0
     })
 
     scene.anims.create({
       key: 'arrow_up_release',
       frames: scene.anims.generateFrameNumbers('arrow_up', {
-        frames: [1, 2, 0],
+        frames: [1, 2, 0]
       }),
       frameRate: 24,
-      repeat: 0,
+      repeat: 0
     })
 
     const leaderboardValue = this.text
@@ -106,30 +107,32 @@ export class Leaderboard {
     const arrowUp = this.arrow_up
 
     scene.input.keyboard.on('keyup', function (event) {
-      if (event.keyCode === Phaser.Input.Keyboard.KeyCodes.DOWN) {
-        arrowDown.play('arrow_down_release')
+      switch (event.keyCode) {
+        case Phaser.Input.Keyboard.KeyCodes.UP:
+          arrowUp.play('arrow_up_release')
+          break
+
+        case Phaser.Input.Keyboard.KeyCodes.DOWN:
+          arrowDown.play('arrow_down_release')
+          break
       }
     })
-    scene.input.keyboard.on('keyup', function (event) {
-      if (event.keyCode === Phaser.Input.Keyboard.KeyCodes.UP) {
-        arrowUp.play('arrow_up_release')
-      }
-    })
+
     scene.input.keyboard.on('keydown', function (event) {
-      if (event.keyCode === Phaser.Input.Keyboard.KeyCodes.DOWN) {
-        leaderboardValue.y -= 10
-        arrowDown.play('arrow_down_hold')
+      switch (event.keyCode) {
+        case Phaser.Input.Keyboard.KeyCodes.UP:
+          if (leaderboardValue.y < 140) {
+            leaderboardValue.y += 10
+            arrowUp.play('arrow_up_hold')
+          }
+          break
+
+        case Phaser.Input.Keyboard.KeyCodes.DOWN:
+          leaderboardValue.y -= 10
+          arrowDown.play('arrow_down_hold')
+          break
       }
       console.log(leaderboardValue.y)
-    })
-    scene.input.keyboard.on('keydown', function (event) {
-      if (event.keyCode === Phaser.Input.Keyboard.KeyCodes.UP) {
-        if (leaderboardValue.y < 140) {
-          leaderboardValue.y += 10
-          arrowUp.play('arrow_up_hold')
-        }
-        console.log(leaderboardValue.y)
-      }
     })
 
     this.isLoading = false
@@ -142,10 +145,10 @@ export class Leaderboard {
     setTimeout(loadingDone, 5000)
   }
 
-  update(visible) {
+  update (visible) {
     if (this.isLoading) {
       if (this.alpha <= 1) {
-        let spinnerAlpha = 1 - this.alpha
+        const spinnerAlpha = 1 - this.alpha
         this.loadingSpinner.setAlpha(
           spinnerAlpha,
           spinnerAlpha,
