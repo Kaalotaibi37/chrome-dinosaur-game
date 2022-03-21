@@ -9,7 +9,7 @@ export class Player {
     this.object.setGravityY(850)
     this.object.x = 50
     this.object.y = 450
-    this.object.health = 4000
+    this.object.health = 5
     this.object.invisibilty = false
     this.cursor.space.repeat = 1
 
@@ -146,7 +146,7 @@ export class Player {
       }
       case this.state.DEAD: {
         scene.sound.stopAll()
-        player.setVisible(false)
+        player.visible = false
         scene.scene.launch('Gameover', [player.x, player.y, scene.distance])
         scene.scene.pause()
         break

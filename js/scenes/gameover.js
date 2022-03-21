@@ -15,7 +15,7 @@ export class Gameover extends Phaser.Scene {
     this.leaderboard = new Leaderboard()
     this.leaderboard.create(this, data[2])
 
-    this.player = this.physics.add.sprite(52, 58, 'player')
+    this.player = this.physics.add.sprite(52, 58, 'player', 14)
 
     this.lostLifeAudio = this.sound.add('lostLife')
     this.lostLifeAudio.play()
@@ -32,7 +32,7 @@ export class Gameover extends Phaser.Scene {
       callback: () => (this.playDeathAnimation = true)
     })
 
-    this.leaderboard.create(this, data[2], Phaser)
+    this.leaderboard.create(this, data[2])
 
     const currentScene = this
     this.input.keyboard.on('keydown', function (event) {

@@ -41,6 +41,8 @@ export class Game extends Phaser.Scene {
     this.player.create(this)
     this.healthbar.create(this)
 
+    this.healthbar.initial(this.player.object.health)
+
     this.time.addEvent({
       delay: 500,
       loop: true,

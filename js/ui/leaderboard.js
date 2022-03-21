@@ -32,25 +32,25 @@ export class Leaderboard {
     this.leaderboard = scene.add.sprite(400, -250, 'leaderboard')
     this.leaderboard.setScale(1.2)
     this.leaderboard.setVisible(false)
-    this.leaderboard.setAlpha(0, 0, 0, 0)
+    this.leaderboard.setAlpha(0)
 
     this.arrow_down = scene.add.sprite(230, -293, 'arrow_down')
     this.arrow_up = scene.add.sprite(230, -250, 'arrow_up')
     this.spacebar = scene.add.sprite(400, -250, 'spacebar')
 
     this.arrow_up.setScale(2)
-    this.arrow_up.setAlpha(0, 0, 0, 0)
+    this.arrow_up.setAlpha(0)
     this.arrow_down.setScale(2)
-    this.arrow_down.setAlpha(0, 0, 0, 0)
+    this.arrow_down.setAlpha(0)
     this.spacebar.setScale(2)
-    this.spacebar.setAlpha(0, 0, 0, 0)
+    this.spacebar.setAlpha(0)
 
     this.loadingSpinner = scene.add.sprite(400, -250, 'loading')
     this.loadingSpinner.setAlpha(0, 0, 0, 0)
 
     this.text = scene.add.text(300, 140, leaderboardContent).setOrigin(0)
     this.text.setMask(mask)
-    this.text.setAlpha(0, 0, 0, 0)
+    this.text.setAlpha(0)
 
     this.zone = scene.add.zone(152, 130, 320, 256).setOrigin(0)
 
@@ -138,8 +138,8 @@ export class Leaderboard {
     this.isLoading = false
 
     const loadingDone = () => {
-      this.isLoading = true
       this.alpha = 0
+      this.isLoading = true
     }
 
     setTimeout(loadingDone, 5000)
@@ -149,16 +149,12 @@ export class Leaderboard {
     if (this.isLoading) {
       if (this.alpha <= 1) {
         const spinnerAlpha = 1 - this.alpha
-        this.loadingSpinner.setAlpha(
-          spinnerAlpha,
-          spinnerAlpha,
-          spinnerAlpha,
-          spinnerAlpha
-        )
-        this.text.setAlpha(this.alpha, this.alpha, this.alpha, this.alpha)
+        this.loadingSpinner.setAlpha(spinnerAlpha)
+        this.text.setAlpha(this.alpha)
         this.alpha += 0.02
       }
     }
+
     if (visible) {
       this.leaderboard.setVisible(true)
       if (this.leaderboard.y < 250) {
@@ -169,26 +165,11 @@ export class Leaderboard {
         this.spacebar.y = this.lerp(520, this.spacebar.y, 0.9)
         if (this.alpha <= 1) {
           this.alpha += 0.02
-          this.spacebar.setAlpha(this.alpha, this.alpha, this.alpha, this.alpha)
-          this.loadingSpinner.setAlpha(
-            this.alpha,
-            this.alpha,
-            this.alpha,
-            this.alpha
-          )
-          this.arrow_up.setAlpha(this.alpha, this.alpha, this.alpha, this.alpha)
-          this.arrow_down.setAlpha(
-            this.alpha,
-            this.alpha,
-            this.alpha,
-            this.alpha
-          )
-          this.leaderboard.setAlpha(
-            this.alpha,
-            this.alpha,
-            this.alpha,
-            this.alpha
-          )
+          this.spacebar.setAlpha(this.alpha)
+          this.loadingSpinner.setAlpha(this.alpha)
+          this.arrow_up.setAlpha(this.alpha)
+          this.arrow_down.setAlpha(this.alpha)
+          this.leaderboard.setAlpha(this.alpha)
         }
       }
     }
