@@ -26,11 +26,11 @@ export class ParallaxBackground {
   }
 
   update (scene) {
-    this.backgroundSky.tilePositionX += 0.005 + scene.globalSpeed * 0.05
-    this.backgroundCloud.tilePositionX += 0.01 + scene.globalSpeed * 0.05
-    this.backgroundForeground.tilePositionX += 0.02 + scene.globalSpeed * 0.05
-    this.backgroundMountain.tilePositionX += 0.035 + scene.globalSpeed * 0.05
+    this.backgroundSky.tilePositionX += 0.0005 + scene.globalTileSpeed * 0.001
+    this.backgroundCloud.tilePositionX += 0.001 + scene.globalTileSpeed * 0.001
+    this.backgroundForeground.tilePositionX += 0.005 + scene.globalTileSpeed * 0.001
+    this.backgroundMountain.tilePositionX += 0.025 + scene.globalTileSpeed * 0.001
     this.backgroundMountainForeground.tilePositionX +=
-      0.05 + scene.globalSpeed * 0.05
+      0.05 + scene.globalTileSpeed * 0.001
   }
 }

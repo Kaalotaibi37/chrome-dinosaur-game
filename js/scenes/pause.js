@@ -10,7 +10,11 @@ export class Pause extends Phaser.Scene {
   }
 
   create (sound) {
+    this.pauseSound = this.sound.add('pause')
     this.add.sprite(400, 300, 'pause')
+
+    this.pauseSound.play()
+
     const currentScene = this.scene
     this.input.keyboard.on('keydown', function (event) {
       if (event.keyCode === Phaser.Input.Keyboard.KeyCodes.SPACE) {

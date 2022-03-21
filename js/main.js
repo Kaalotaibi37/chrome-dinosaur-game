@@ -1,4 +1,3 @@
-/* eslint-disable no-undef */
 import { Preload } from './scenes/preload.js'
 import { Game } from './scenes/game.js'
 import { Gameover } from './scenes/gameover.js'
@@ -7,7 +6,7 @@ import { Pause } from './scenes/pause.js'
 /* This is the config for the game's scene */
 const config = {
   // eslint-disable-next-line no-undef
-  type: Phaser.AUTO, // Tell phaser to choose either Canvas or WebGL for rendering
+  type: Phaser.WebGL, // Tell phaser to choose either Canvas or WebGL for rendering
   width: 800,
   height: 600,
   transparent: true,

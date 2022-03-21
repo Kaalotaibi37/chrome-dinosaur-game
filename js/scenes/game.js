@@ -15,17 +15,19 @@ export class Game extends Phaser.Scene {
   }
 
   create () {
-    this.pauseSound = this.sound.add('pause')
-    this.explosionSound = this.sound.add('explosion')
-    this.backgroundSound_1 = this.sound.add('overworld')
-    this.backgroundSound_2 = this.sound.add('overworld_2')
+    const musicConfig = {
+      volume: 0.2
+    }
+    const backgroundMusics = {
+      overworld: this.sound.add('overworld', musicConfig),
+      overworld2: this.sound.add('overworld_2', musicConfig)
+    }
 
     this.parallaxBackground = new ParallaxBackground()
     this.entitiyManager = new EntitiesManager()
     this.player = new Player()
     this.healthbar = new Healthbar()
 
-    this.globalSpeed = 0
     this.globalTileSpeed = 1
 
     this.parallaxBackground.create(this)
@@ -47,14 +49,8 @@ export class Game extends Phaser.Scene {
       }
     })
 
-    this.time.addEvent({
-      delay: 92000,
-      loop: false,
-      callback: () => this.backgroundSound_2.play({ volume: 0.5 })
-    })
-    this.backgroundSound_1.play({
-      volume: 0.1
-    })
+    backgroundMusics.overworld.once('complete', () => backgroundMusics.overworld2.play())
+    backgroundMusics.overworld.play()
 
     /** Adds overlap collision between the player and other entities */
     this.entitiyManager.entityNames.forEach((name) => {
@@ -79,11 +75,9 @@ export class Game extends Phaser.Scene {
     this.physics.add.collider(this.player.object, this.ground)
 
     const currentScene = this
-    const playPauseSound = this.pauseSound
     this.input.keyboard.on('keydown', function (event) {
       if (event.keyCode === Phaser.Input.Keyboard.KeyCodes.SPACE) {
         currentScene.sound.pauseAll()
-        playPauseSound.play()
         currentScene.scene.launch('Pause', currentScene.sound)
         currentScene.scene.pause()
       }
