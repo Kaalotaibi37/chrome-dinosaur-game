@@ -1,3 +1,4 @@
+import { tags } from './entities.js'
 import { paths } from './paths.js'
 
 export class Birds {
@@ -89,6 +90,7 @@ export class Birds {
       }
     }
 
+    bird.tag = tags.enemy
     bird.setName('Bird_' + bird.pathFunc.name)
     bird.setActive(true).setVisible(true)
   }

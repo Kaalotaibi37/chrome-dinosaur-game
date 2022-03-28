@@ -22,6 +22,7 @@ export class Player {
     this.currentState = this.state.RUN
 
     this.object.hit = () => {
+      this.object.invisibility = true
       this.hitSound.play()
       scene.cameras.main.shake(100, 0.008)
       this.object.health -= 1

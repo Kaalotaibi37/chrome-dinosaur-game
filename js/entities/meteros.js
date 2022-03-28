@@ -1,3 +1,4 @@
+import { tags } from './entities.js'
 import { paths } from './paths.js'
 
 export class Meteors {
@@ -84,6 +85,7 @@ export class Meteors {
     meteor.pathFunc = paths.dive
     meteor.anims.play('meteor')
 
+    meteor.tag = tags.enemy
     meteor.setName('Meteor_' + currentType)
     meteor.setActive(true).setVisible(true)
   }

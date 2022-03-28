@@ -1,3 +1,5 @@
+import { tags } from './entities.js'
+
 export class Blocks {
   create (scene) {
     this.group = scene.physics.add.group({
@@ -34,6 +36,7 @@ export class Blocks {
         return
       }
 
+      block.tag = tags.enemy
       block.setName('Block_' + 'WIP')
 
       console.group('Block spawn')

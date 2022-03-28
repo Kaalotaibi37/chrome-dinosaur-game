@@ -77,6 +77,12 @@ export class Preload extends Phaser.Scene {
     this.load.image('blockLarge', 'assets/block_large.png')
     this.load.image('spike', 'assets/spike.png')
     this.load.image('heart', 'assets/heart.png')
+    this.load.image('healthbarBorder', 'assets/healthbar_border.png')
+    this.load.image('healthbar', 'assets/healthbar.png')
+    this.load.image(
+      'mountain_foreground',
+      'assets/background_mountain_foreground.png'
+    )
 
     this.load.audio('lostLife', 'assets/audio/lost_life.wav')
     this.load.audio('overworld', 'assets/audio/overworld.mp3')
@@ -87,6 +93,7 @@ export class Preload extends Phaser.Scene {
     this.load.audio('meteor', 'assets/audio/meteor.wav')
     this.load.audio('explosion', 'assets/audio/explosion.wav')
     this.load.audio('meteorLarge', 'assets/audio/meteor_large.wav')
+    this.load.audio('healthup', 'assets/audio/gained_health.wav')
 
     this.load.spritesheet('loading', 'assets/loading_spinner.png', {
       frameWidth: 200,
@@ -116,12 +123,6 @@ export class Preload extends Phaser.Scene {
       frameWidth: 16,
       frameHeight: 32
     })
-    this.load.image(
-      'mountain_foreground',
-      'assets/background_mountain_foreground.png'
-    )
-    this.load.image('healthbarBorder', 'assets/healthbar_border.png')
-    this.load.image('healthbar', 'assets/healthbar.png')
     this.load.spritesheet('bird', 'assets/Bird.png', {
       frameWidth: 50,
       frameHeight: 50

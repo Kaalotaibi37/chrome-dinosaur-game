@@ -1,6 +1,6 @@
 /* eslint-disable no-undef */
 import { ParallaxBackground } from '../entities/background.js'
-import { EntitiesManager } from '../entities/entities.js'
+import { EntitiesManager, tags } from '../entities/entities.js'
 import { Player } from '../entities/player.js'
 import { Healthbar } from '../ui/healthbar.js'
 
@@ -61,14 +61,23 @@ export class Game extends Phaser.Scene {
         this.player.object,
         entityGroup.group,
         (player, otherEntity) => {
-          if (!player.invisibility) {
-            player.invisibility = true
-            player.hit()
-            this.healthbar.draw(player.health)
-            console.group('Collision Player and ' + otherEntity.name)
-            console.log('Collision detected!')
-            console.log('Player health: ' + player.health)
-            console.groupEnd('Collision Player and ' + otherEntity.name)
+          switch (otherEntity.tag) {
+            case tags.enemy: {
+              if (!player.invisibility) {
+                player.hit()
+                console.group('Collision Player and ' + otherEntity.name)
+                console.log('Collision detected!')
+                console.log('Player health: ' + player.health)
+                console.groupEnd('Collision Player and ' + otherEntity.name)
+              }
+              break
+            }
+            case tags.power:
+              otherEntity.action(player)
+              break
+
+            default:
+              console.warn('Unknown tag: ', otherEntity.name)
           }
         }
       )
@@ -96,5 +105,7 @@ export class Game extends Phaser.Scene {
     if (this.globalTileSpeed <= 5 && this.distance % 20 === 0) {
       this.globalTileSpeed += 0.005
     }
+
+    this.healthbar.draw(this.player.object.health)
   }
 }
