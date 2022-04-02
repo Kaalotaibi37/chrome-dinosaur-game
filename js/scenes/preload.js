@@ -61,16 +61,10 @@ export class Preload extends Phaser.Scene {
       loadingText.destroy()
       precentText.destroy()
       assetText.destroy()
-      this.scene.start('Game')
+      this.scene.start('UnderworldStage')
       this.scene.stop()
     })
 
-    this.load.image('ground', 'assets/background.png')
-    this.load.image('sky', 'assets/background_sky.png')
-    this.load.image('cloud', 'assets/background_cloud.png')
-    this.load.image('cloud_2', 'assets/background_cloud2.png')
-    this.load.image('mountain', 'assets/background_mountain.png')
-    this.load.image('mountain', 'assets/background_mountain.png')
     this.load.image('leaderboard', 'assets/leaderboard.png')
     this.load.image('pause', 'assets/pause.png')
     this.load.image('block', 'assets/block.png')
@@ -79,10 +73,20 @@ export class Preload extends Phaser.Scene {
     this.load.image('heart', 'assets/heart.png')
     this.load.image('healthbarBorder', 'assets/healthbar_border.png')
     this.load.image('healthbar', 'assets/healthbar.png')
-    this.load.image(
-      'mountain_foreground',
-      'assets/background_mountain_foreground.png'
-    )
+    this.load.image('gameTiles', 'assets/game-tiles.png')
+    // this.load.image('ground', 'assets/background.png')
+    // this.load.image('sky', 'assets/background_sky.png')
+    // this.load.image('cloud', 'assets/background_cloud.png')
+    // this.load.image('cloud_2', 'assets/background_cloud2.png')
+    // this.load.image('mountain', 'assets/background_mountain.png')
+    // this.load.image('mountain', 'assets/background_mountain.png')
+    // this.load.image('underworld_ground', 'assets/underground_ground.png')
+    // this.load.image(
+    //   'mountain_foreground',
+    //   'assets/background_mountain_foreground.png'
+    // )
+    this.load.image('background', 'assets/background.png')
+    this.load.image('backgroundClouds', 'assets/background-clouds.png')
 
     this.load.audio('lostLife', 'assets/audio/lost_life.wav')
     this.load.audio('overworld', 'assets/audio/overworld.mp3')

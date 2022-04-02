@@ -6,7 +6,7 @@ export class Player {
     this.object = scene.physics.add.sprite(52, 58, 'player')
     this.object.setScale(2)
     this.object.setCollideWorldBounds(true)
-    this.object.setGravityY(850)
+    this.object.setGravityY(1050)
     this.object.x = 50
     this.object.y = 450
     this.object.health = 5
@@ -90,7 +90,9 @@ export class Player {
 
   update (scene) {
     const player = this.object
-    player.setVelocityX(0)
+
+    // player.x = (player.x + 1) % 3072
+    // player.setVelocityX(500)
 
     if (player.anims.msPerFrame > this.maxAnimationThreshHold) {
       player.anims.msPerFrame = 100 - scene.distance * 0.5
@@ -103,11 +105,13 @@ export class Player {
     }
 
     if (this.cursor.right.isDown) {
-      player.setVelocityX(200)
+      // console.log('Player x: ', player.x)
+      player.setVelocityX(700)
     }
 
     if (this.cursor.left.isDown) {
-      player.setVelocityX(-200)
+      // console.log('Player x: ', player.x)
+      player.setVelocityX(-400)
     }
 
     switch (this.currentState) {
@@ -116,7 +120,7 @@ export class Player {
         player.setOffset(20, 17)
         this.object.play('run', true)
 
-        if (this.cursor.up.isDown) {
+        if (this.cursor.up.isDown && player.body.onFloor()) {
           player.anims.play('jump')
           player.setVelocityY(-550)
           this.jumpSound.play()
@@ -138,9 +142,7 @@ export class Player {
         break
       }
       case this.state.JUMP: {
-        player.setSize(13, 30)
-        player.setOffset(22, 19)
-        if (player.y >= 448) {
+        if (player.body.onFloor()) {
           this.currentState = this.state.RUN
         }
         break
@@ -152,9 +154,6 @@ export class Player {
         scene.scene.pause()
         break
       }
-    }
-    if (player.y > 448) {
-      player.y = 448
     }
   }
 }

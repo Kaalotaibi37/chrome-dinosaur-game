@@ -1,5 +1,4 @@
 import { tags } from './entities.js'
-import { paths } from './paths.js'
 
 export class Meteors {
   create (scene) {
@@ -18,12 +17,6 @@ export class Meteors {
     this.explosionObject = null
     this.spawnSound = scene.sound.add('meteor')
     this.spawnSoundLarge = scene.sound.add('meteorLarge')
-    scene.physics.add.collider(this.group, scene.ground, (_, meteor) => {
-      if (this.explosionObject) {
-        this.explosionObject.addExplosion(meteor.x, meteor.y, meteor.modScale)
-      }
-      meteor.destroy()
-    })
 
     scene.anims.create({
       key: 'meteor',
@@ -36,21 +29,27 @@ export class Meteors {
     })
 
     scene.time.addEvent({
-      delay: 1000,
+      delay: 500,
       loop: true,
-      callback: () => this.addMeteor()
+      callback: () => this.addMeteor(scene)
     })
   }
 
-  addMeteor () {
-    const firstDie = Math.floor(Math.random() * 8 + 1)
-    const secondDie = Math.floor(Math.random() * 8 + 1)
-    const spawnRate = (firstDie + secondDie) * this.spawnMod
+  explode (meteor) {
+    if (this.explosionObject) {
+      this.explosionObject.addExplosion(meteor.x, meteor.y, meteor.modScale)
+    }
+    meteor.destroy()
+  }
+
+  addMeteor (scene) {
+    const firstDie = Math.floor(Math.random() * 6 + 1)
+    const secondDie = Math.floor(Math.random() * 6 + 1)
 
     let currentType = null
-    if (spawnRate >= 40) {
+    if (firstDie === 4 && secondDie === 4) {
       currentType = this.meteorType.LARGE
-    } else if (spawnRate >= 18) {
+    } else if (firstDie === 4) {
       currentType = this.meteorType.SMALL
     }
 
@@ -63,7 +62,6 @@ export class Meteors {
     console.group('Meteor spawn')
     console.log('Type: ' + currentType)
     console.log('Spawn mod: ' + this.spawnMod)
-    console.log('Spawn rate: ' + spawnRate)
     console.groupEnd('Meteor spawn')
 
     meteor.x = 800
@@ -80,23 +78,20 @@ export class Meteors {
         this.spawnSoundLarge.play()
       }
     }
-    meteor.yPos = Math.random() * 400 + 100
-    meteor.angle = 45
-    meteor.pathFunc = paths.dive
-    meteor.anims.play('meteor')
 
+    meteor.angle = 45
+    meteor.anims.play('meteor')
     meteor.tag = tags.enemy
+    meteor.x += scene.cameras.main.scrollX + Math.floor(Math.random() * 2000)
+    meteor.y -= 100
     meteor.setName('Meteor_' + currentType)
     meteor.setActive(true).setVisible(true)
   }
 
   update (scene) {
-    if (this.spawnMod < this.spawnModThreshHold) {
-      this.spawnMod = scene.distance * 0.03
-    }
     this.group.children.iterate((meteor) => {
-      meteor.setVelocityX(-200 + meteor.modScale * 30)
-      meteor.y = meteor.pathFunc(meteor)
+      meteor.setVelocityY(200)
+      meteor.setVelocityX(-200)
     })
   }
 }

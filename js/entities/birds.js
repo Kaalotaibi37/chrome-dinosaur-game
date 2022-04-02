@@ -23,7 +23,7 @@ export class Birds {
     })
 
     scene.time.addEvent({
-      delay: 700,
+      delay: 1000,
       loop: true,
       callback: () => this.addBird(scene)
     })
@@ -91,6 +91,7 @@ export class Birds {
     }
 
     bird.tag = tags.enemy
+    bird.x += scene.cameras.main.scrollX + 1024
     bird.setName('Bird_' + bird.pathFunc.name)
     bird.setActive(true).setVisible(true)
   }
@@ -113,7 +114,7 @@ export class Birds {
     this.group.children.iterate((bird) => {
       bird.setVelocityX(-200 - scene.distance * 0.5)
       bird.y = bird.pathFunc(bird)
-      if (bird.x < 0) {
+      if (bird.x - scene.cameras.main.scrollX < 0) {
         this.group.killAndHide(bird)
       }
     })

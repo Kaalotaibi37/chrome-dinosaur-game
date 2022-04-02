@@ -16,7 +16,8 @@ export class Game extends Phaser.Scene {
 
   create () {
     const musicConfig = {
-      volume: 0.2
+      volume: 0.2,
+      rate: 10
     }
     const backgroundMusics = {
       overworld: this.sound.add('overworld', musicConfig),
@@ -29,6 +30,7 @@ export class Game extends Phaser.Scene {
     this.healthbar = new Healthbar()
 
     this.globalTileSpeed = 1
+    this.finished = false
 
     this.parallaxBackground.create(this)
     this.ground = this.add.tileSprite(400, 600, 800, 192, 'ground')
@@ -51,7 +53,7 @@ export class Game extends Phaser.Scene {
       }
     })
 
-    backgroundMusics.overworld.once('complete', () => backgroundMusics.overworld2.play())
+    backgroundMusics.overworld.once('complete', () => { this.finished = true })
     backgroundMusics.overworld.play()
 
     /** Adds overlap collision between the player and other entities */
@@ -96,10 +98,22 @@ export class Game extends Phaser.Scene {
   }
 
   update () {
+    if (this.finished) {
+      this.player.object.x += 1
+      this.input.keyboard.enabled = false
+      this.player.object.setCollideWorldBounds(false)
+
+      if (this.player.object.x > 900) {
+        this.scene.start('UnderworldStage', {
+          health: this.player.object.health
+        })
+      }
+    }
+
     this.ground.tilePositionX += this.globalTileSpeed
 
-    this.parallaxBackground.update(this)
     this.player.update(this)
+    this.parallaxBackground.update(this)
     this.entitiyManager.update(this)
 
     if (this.globalTileSpeed <= 5 && this.distance % 20 === 0) {

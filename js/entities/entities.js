@@ -1,7 +1,6 @@
 import { Birds } from './birds.js'
 import { Meteors } from './meteros.js'
 import { Explosion } from './explosion.js'
-import { Blocks } from './blocks.js'
 import { PowerUpManager } from './powerups.js'
 
 export class EntitiesManager {
@@ -10,7 +9,6 @@ export class EntitiesManager {
       birds: new Birds(),
       meteors: new Meteors(),
       explosions: new Explosion(),
-      blocks: new Blocks(),
       powerups: new PowerUpManager()
     }
 
