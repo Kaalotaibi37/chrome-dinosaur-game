@@ -32,6 +32,7 @@ export class UnderworldStage extends Phaser.Scene {
       (meteor) => {
         this.entitiesManager.entities.meteors.explode(meteor)
       })
+    // this.chunkSystem.setOverlap(this, 9, this.player.object)
 
     this.background.setScrollFactor(0)
     this.backgroundCloud.setScrollFactor(0)
@@ -97,6 +98,9 @@ export class UnderworldStage extends Phaser.Scene {
       })
       this.entitiesManager.entities.meteors.group.children.iterate((meteor) => {
         meteor.x -= mod
+      })
+      this.entitiesManager.entities.powerups.group.children.iterate((powerUp) => {
+        powerUp.x = powerUp.x - mod
       })
       this.chunkSystem.updateChunks(this)
     }

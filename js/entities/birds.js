@@ -5,12 +5,8 @@ export class Birds {
   create (scene) {
     this.group = scene.physics.add.group({
       defaultKey: 'bird',
-      maxSize: 1
+      maxSize: 5
     })
-
-    this.spawnRateThreshHold = 10
-    this.spawnMod = 0
-    this.spawnModThreshHold = 2
 
     scene.anims.create({
       key: 'fly',
@@ -23,23 +19,18 @@ export class Birds {
     })
 
     scene.time.addEvent({
-      delay: 1000,
+      delay: 500,
       loop: true,
       callback: () => this.addBird(scene)
     })
   }
 
   addBird (scene) {
-    const firstDie = Math.floor(Math.random() * 6 + 1)
-    const secondDie = Math.floor(Math.random() * 6 + 1)
-    const spawnValue = (firstDie + secondDie) * this.spawnMod
+    const dice = Math.floor(Math.random() * 6 + 1)
 
-    let currentPath = paths.horizontalLine
-    if (spawnValue >= 16) {
-      currentPath = paths.wave
-    } else if (spawnValue < 16 && spawnValue >= 10) {
-      currentPath = paths.parabola
-    }
+    if (dice !== 1) return
+
+    const currentPath = paths.horizontalLine
 
     const bird = this.group.get()
 
@@ -47,8 +38,6 @@ export class Birds {
 
     console.group('Bird spwan')
     console.log('Path: ' + currentPath.name)
-    console.log('Spwan mod: ' + this.spawnMod)
-    console.log('Spawn value: ' + spawnValue)
     console.groupEnd('Bird spawn')
 
     bird.anims.play('fly')
@@ -97,22 +86,8 @@ export class Birds {
   }
 
   update (scene) {
-    if (
-      Math.floor(scene.distance / 30 > this.group.maxSize) &&
-      this.group.maxSize < this.spawnRateThreshHold
-    ) {
-      this.group.maxSize += 1
-    }
-
-    if (
-      Math.floor(scene.distance / 10) > this.spawnMod &&
-      this.spawnMod < this.spawnModThreshHold
-    ) {
-      this.spawnMod += 0.0001
-    }
-
     this.group.children.iterate((bird) => {
-      bird.setVelocityX(-200 - scene.distance * 0.5)
+      bird.setVelocityX(-200)
       bird.y = bird.pathFunc(bird)
       if (bird.x - scene.cameras.main.scrollX < 0) {
         this.group.killAndHide(bird)

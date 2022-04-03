@@ -4,6 +4,7 @@ export class Player {
     this.jumpSound = scene.sound.add('jump')
     this.hitSound = scene.sound.add('hit')
     this.object = scene.physics.add.sprite(52, 58, 'player')
+    this.object.name = 'player'
     this.object.setScale(2)
     this.object.setCollideWorldBounds(true)
     this.object.setGravityY(1050)
@@ -30,7 +31,7 @@ export class Player {
       scene.time.addEvent({
         delay: 1400,
         loop: false,
-        callback: () => (this.object.invisibility = false)
+        callback: () => { this.object.invisibility = false }
       })
 
       scene.time.addEvent({
@@ -111,7 +112,7 @@ export class Player {
 
     if (this.cursor.left.isDown) {
       // console.log('Player x: ', player.x)
-      player.setVelocityX(-400)
+      player.setVelocityX(-50)
     }
 
     switch (this.currentState) {

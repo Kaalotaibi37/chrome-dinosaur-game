@@ -22,8 +22,8 @@ class Chunk {
     this.map = scene.make.tilemap({ data: this.data, tileWidth: 64, tileHeight: 64 })
     this.tiles = this.map.addTilesetImage('gameTiles')
     this.layer = this.map.createLayer(0, this.tiles, 0, 0)
+    this.spikeLayer = this.map.createLayer(1, this.tiles, 0, 0)
     this.map.setCollisionBetween(0, 8)
-    this.map.setTileIndexCallback(9, () => console.log('Touched spike!'), scene)
     this.layer.x = this.x
     console.log(this.layer)
   }
@@ -53,23 +53,29 @@ export class ChunkSystem {
     })
   }
 
+  setOverlap (scene, tileType, gameObject, callBack) {
+    this.chunks.forEach((chunk) => {
+      chunk.map.setTileIndexCallback(tileType, callBack, scene)
+    })
+  }
+
   generateSpikeTiles (chunk) {
     const dice = Math.floor(Math.random() * 10)
 
     if (dice >= 6) return
 
     const skip = Math.floor(Math.random() * 15)
-    const groundTile = chunk.findByIndex(1, skip)
+    const groundTile = chunk.layer.findByIndex(1, skip)
 
     console.log('ground Tile: ', groundTile)
     if (!groundTile) return
 
-    const width = 4
+    const width = Math.floor(Math.random() * 4 + 1)
 
     for (let i = groundTile.x; i < width + groundTile.x; i++) {
-      const tile = chunk.getTileAt(i, groundTile.y)
+      const tile = chunk.layer.getTileAt(i, groundTile.y)
       if (tile && [0, 1, 2].includes(tile.index)) {
-        chunk.putTileAt(9, i, groundTile.y - 1)
+        chunk.spikeLayer.putTileAt(9, i, groundTile.y - 1)
       }
     }
   }
@@ -112,14 +118,18 @@ export class ChunkSystem {
     const chunk = this.chunks.pop()
     const update = async () => {
       chunk.layer.x = 0
-      this.chunks.forEach((chunk) => { chunk.layer.x += 1024 })
+      this.chunks.forEach((chunk) => {
+        chunk.layer.x += 1024
+        // chunk.spikeLayer.x += 1024
+      })
       for (let i = 0; i < this.chunks.length; i++) {
         this.chunks[i].layer.fill(null)
+        this.chunks[i].spikeLayer.fill(-1, 0, 0)
         this.chunks[i].layer.fill(1, 0, 7)
         this.chunks[i].layer.fill(4, 0, 8)
-        this.conumeTiles(this.chunks[i].layer)
-        this.generateHeightTiles(this.chunks[i].layer)
-        this.generateSpikeTiles(this.chunks[i].layer)
+        // this.conumeTiles(this.chunks[i].layer)
+        // this.generateHeightTiles(this.chunks[i].layer)
+        this.generateSpikeTiles(this.chunks[i])
       }
     }
     update().then(() => this.chunks.unshift(chunk))

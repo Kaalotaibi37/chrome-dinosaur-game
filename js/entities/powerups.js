@@ -13,8 +13,8 @@ export class PowerUpManager {
         // eslint-disable-next-line no-undef
         const dice = Math.floor(Math.random() * 32) + 1
         if (dice === 1) {
-          const y = Math.random() * 100 + 300
-          this.group.add(new Health().create(scene, 800, y))
+          const y = Math.random() * 200 + 200
+          this.group.add(new Health().create(scene, 1024 + scene.cameras.main.scrollX + 100, y))
         }
       }
     })
@@ -22,7 +22,9 @@ export class PowerUpManager {
 
   update (scene) {
     this.group.children.iterate((powerUp) => {
-      powerUp.myUpdate()
+      if (powerUp) {
+        powerUp.myUpdate()
+      }
     })
   }
 }
@@ -46,9 +48,9 @@ class Health {
       this.object.destroy()
     }
     this.object.myUpdate = () => {
-      this.object.x += -3
+      this.object.setVelocityX(-200)
       this.object.y = this.pathFunc(this.object)
-      if (this.object.x < -50) {
+      if (this.object.x - scene.cameras.main.scrollX <= -50) {
         this.object.destroy()
       }
     }
