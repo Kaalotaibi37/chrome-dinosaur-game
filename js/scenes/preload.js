@@ -69,22 +69,11 @@ export class Preload extends Phaser.Scene {
     this.load.image('pause', 'assets/pause.png')
     this.load.image('block', 'assets/block.png')
     this.load.image('blockLarge', 'assets/block_large.png')
-    this.load.image('spike', 'assets/spike.png')
     this.load.image('heart', 'assets/heart.png')
     this.load.image('healthbarBorder', 'assets/healthbar_border.png')
     this.load.image('healthbar', 'assets/healthbar.png')
     this.load.image('gameTiles', 'assets/game-tiles.png')
-    // this.load.image('ground', 'assets/background.png')
-    // this.load.image('sky', 'assets/background_sky.png')
-    // this.load.image('cloud', 'assets/background_cloud.png')
-    // this.load.image('cloud_2', 'assets/background_cloud2.png')
-    // this.load.image('mountain', 'assets/background_mountain.png')
-    // this.load.image('mountain', 'assets/background_mountain.png')
-    // this.load.image('underworld_ground', 'assets/underground_ground.png')
-    // this.load.image(
-    //   'mountain_foreground',
-    //   'assets/background_mountain_foreground.png'
-    // )
+    this.load.image('spike', 'assets/spikes.png')
     this.load.image('background', 'assets/background.png')
     this.load.image('backgroundClouds', 'assets/background-clouds.png')
 

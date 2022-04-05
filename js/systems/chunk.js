@@ -21,9 +21,8 @@ class Chunk {
   create (scene) {
     this.map = scene.make.tilemap({ data: this.data, tileWidth: 64, tileHeight: 64 })
     this.tiles = this.map.addTilesetImage('gameTiles')
-    this.layer = this.map.createLayer(0, this.tiles, 0, 0)
-    this.spikeLayer = this.map.createLayer(1, this.tiles, 0, 0)
-    this.map.setCollisionBetween(0, 8)
+    this.layer = this.map.createLayer(0, this.tiles)
+    this.layer.setCollisionBetween(0, 8, true)
     this.layer.x = this.x
     console.log(this.layer)
   }
@@ -45,6 +44,9 @@ export class ChunkSystem {
 
   create (scene) {
     this.chunks.forEach((chunk) => chunk.create(scene))
+    this.spikesGroup = scene.physics.add.staticGroup({
+      defaultKey: 'spike'
+    })
   }
 
   setCollider (scene, gameObject, callBack) {
@@ -62,7 +64,7 @@ export class ChunkSystem {
   generateSpikeTiles (chunk) {
     const dice = Math.floor(Math.random() * 10)
 
-    if (dice >= 6) return
+    if (dice >= 5) return
 
     const skip = Math.floor(Math.random() * 15)
     const groundTile = chunk.layer.findByIndex(1, skip)
@@ -74,8 +76,15 @@ export class ChunkSystem {
 
     for (let i = groundTile.x; i < width + groundTile.x; i++) {
       const tile = chunk.layer.getTileAt(i, groundTile.y)
-      if (tile && [0, 1, 2].includes(tile.index)) {
-        chunk.spikeLayer.putTileAt(9, i, groundTile.y - 1)
+      if (!tile) continue
+      console.log('Current tile index: ', tile.index)
+      if ([0, 1, 2].includes(tile.index)) {
+        const spike = this.spikesGroup.get(tile.x * 64 + 32 + (chunk.layer.x), tile.y * 64 - 20)
+        // if (spike) {
+        //   console.log(`spawn spikes at chunk id: ${chunk.id}, x: ${chunk.layer.x}`)
+        //   spike.setActive(true).setVisible(true)
+        //   spike.refreshBody()
+        // }
       }
     }
   }
@@ -117,18 +126,21 @@ export class ChunkSystem {
   updateChunks (scene) {
     const chunk = this.chunks.pop()
     const update = async () => {
-      chunk.layer.x = 0
-      this.chunks.forEach((chunk) => {
-        chunk.layer.x += 1024
-        // chunk.spikeLayer.x += 1024
+      console.log('Poped id: ', chunk.id)
+      this.spikesGroup.children.iterate((spike) => {
+        if (spike.x >= chunk.layer.x) {
+          spike.x = spike.x - 3073
+          spike.refreshBody()
+        }
       })
+      chunk.layer.x = 0
+      this.chunks.forEach((chunk) => (chunk.layer.x += 1024))
       for (let i = 0; i < this.chunks.length; i++) {
         this.chunks[i].layer.fill(null)
-        this.chunks[i].spikeLayer.fill(-1, 0, 0)
         this.chunks[i].layer.fill(1, 0, 7)
         this.chunks[i].layer.fill(4, 0, 8)
-        // this.conumeTiles(this.chunks[i].layer)
-        // this.generateHeightTiles(this.chunks[i].layer)
+        this.conumeTiles(this.chunks[i].layer)
+        this.generateHeightTiles(this.chunks[i].layer)
         this.generateSpikeTiles(this.chunks[i])
       }
     }

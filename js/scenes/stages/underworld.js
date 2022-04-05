@@ -32,7 +32,6 @@ export class UnderworldStage extends Phaser.Scene {
       (meteor) => {
         this.entitiesManager.entities.meteors.explode(meteor)
       })
-    // this.chunkSystem.setOverlap(this, 9, this.player.object)
 
     this.background.setScrollFactor(0)
     this.backgroundCloud.setScrollFactor(0)
@@ -67,9 +66,14 @@ export class UnderworldStage extends Phaser.Scene {
       }
     })
     // this.chunkSystem.updateChunks(this)
-    // this.chunkSystem.conumeTiles(this.chunkSystem.chunks[0].layer)
-    // this.chunkSystem.generateHeightTiles(this.chunkSystem.chunks[0].layer)
-    // this.chunkSystem.generateSpikeTiles(this.chunkSystem.chunks[0].layer)
+    this.chunkSystem.conumeTiles(this.chunkSystem.chunks[1].layer)
+    this.chunkSystem.generateHeightTiles(this.chunkSystem.chunks[2].layer)
+    this.chunkSystem.generateSpikeTiles(this.chunkSystem.chunks[1])
+    this.chunkSystem.generateSpikeTiles(this.chunkSystem.chunks[2])
+    this.chunkSystem.generateSpikeTiles(this.chunkSystem.chunks[3])
+    this.currentLayerText = this.add.text(512, 10, 'Current Chunk')
+    this.currentLayerText.setScale(3)
+    this.currentLayerText.setScrollFactor(0)
   }
 
   update (_, delta) {
@@ -81,6 +85,8 @@ export class UnderworldStage extends Phaser.Scene {
     const mod = 3073
     // const speed = 0
     const speed = 0.5
+
+    this.currentLayerText.setText('Current Chunk: ' + this.chunkSystem.currentChunk(this.player.object.x))
 
     if (!this.startAnimation) {
       // console.log('Camera: ', this.cameras.main.scrollX)
@@ -104,7 +110,11 @@ export class UnderworldStage extends Phaser.Scene {
       })
       this.chunkSystem.updateChunks(this)
     }
-
+    this.chunkSystem.spikesGroup.children.iterate((spike) => {
+      if (spike && spike.x - this.cameras.main.scrollX < -64) {
+        spike.destroy()
+      }
+    })
     this.player.update(this)
     this.entitiesManager.update(this)
   }
