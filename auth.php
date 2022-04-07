@@ -11,7 +11,7 @@
   </head>
   <body>
     <div class="login">
-      <form class="form">
+      <form class="form" method="post">
         <h2>Login</h2>
         <div class="inputs">
           <input type="text" name="username_login" id="username" required>
