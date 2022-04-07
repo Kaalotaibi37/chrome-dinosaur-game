@@ -14,12 +14,12 @@
       <form class="form">
         <h2>Login</h2>
         <div class="inputs">
-          <input type="text" name="username" id="username" required>
+          <input type="text" name="username_login" id="username" required>
           <label for="username">Username
           </label>
         </div>
         <div class="inputs">
-          <input type="password" name="password" id="password" required>
+          <input type="password" name="password_login" id="password" required>
           <label for="password">Password
           </label>
         </div>
@@ -27,7 +27,7 @@
         </a>
         <a href="#forgot-password" class="forgot-password" id="forg">Forgot Password?
         </a>
-          <input type="submit" value="Log in" class="button">
+          <input type="submit" name="Login" value="Login" class="button">
       </form>
 
       <div id="register" >
