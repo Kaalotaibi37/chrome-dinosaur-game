@@ -79,12 +79,7 @@ export class ChunkSystem {
       if (!tile) continue
       console.log('Current tile index: ', tile.index)
       if ([0, 1, 2].includes(tile.index)) {
-        const spike = this.spikesGroup.get(tile.x * 64 + 32 + (chunk.layer.x), tile.y * 64 - 20)
-        // if (spike) {
-        //   console.log(`spawn spikes at chunk id: ${chunk.id}, x: ${chunk.layer.x}`)
-        //   spike.setActive(true).setVisible(true)
-        //   spike.refreshBody()
-        // }
+        this.spikesGroup.get(tile.x * 64 + 32 + (chunk.layer.x), tile.y * 64 - 20)
       }
     }
   }

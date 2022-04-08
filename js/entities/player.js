@@ -151,7 +151,11 @@ export class Player {
       case this.state.DEAD: {
         scene.sound.stopAll()
         player.visible = false
-        scene.scene.launch('Gameover', [player.x, player.y, scene.distance])
+        scene.scene.launch('Gameover', {
+          x: player.x,
+          y: player.y,
+          score: 0
+        })
         scene.scene.pause()
         break
       }

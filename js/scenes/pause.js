@@ -5,8 +5,8 @@
  */
 export class Pause extends Phaser.Scene {
   constructor () {
-    super()
-    Phaser.Scene.call(this, { key: 'Pause' })
+    super({ key: 'Pause' })
+    // Phaser.Scene.call(this, { key: 'Pause' })
   }
 
   create (data) {

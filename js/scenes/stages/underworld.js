@@ -1,6 +1,7 @@
 import { Player } from '../../entities/player.js'
 import { ChunkSystem } from '../../systems/chunk.js'
-import { EntitiesManager } from '../../entities/entities.js'
+import { EntitiesManager, tags } from '../../entities/entities.js'
+import eventsCenter from '../../utils/eventsCenter.js'
 
 /* eslint-disable no-undef */
 export class UnderworldStage extends Phaser.Scene {
@@ -10,7 +11,7 @@ export class UnderworldStage extends Phaser.Scene {
   }
 
   create (data) {
-    data = { health: 20 }
+    data = { health: 5 }
 
     this.background = this.add.tileSprite(512, 320, 1024, 640, 'background')
     this.backgroundCloud = this.add.tileSprite(512, 320, 1024, 640, 'backgroundClouds')
@@ -33,12 +34,40 @@ export class UnderworldStage extends Phaser.Scene {
         this.entitiesManager.entities.meteors.explode(meteor)
       })
 
+    this.entitiesManager.entityNames.forEach((key) => {
+      const group = this.entitiesManager.entities[key].group
+      this.physics.add.overlap(this.player.object, group, (player, other) => {
+        switch (other.tag) {
+          case tags.enemy:
+            if (!player.invisibility) {
+              player.hit()
+              eventsCenter.emit('update-health', player.health)
+            }
+            break
+          case tags.power:
+            other.action(player)
+            eventsCenter.emit('update-health', player.health)
+            break
+          default:
+            break
+        }
+      })
+    })
+
+    this.physics.add.overlap(this.player.object, this.chunkSystem.spikesGroup, (player) => {
+      if (!player.invisibility) {
+        player.hit()
+        eventsCenter.emit('update-health', player.health)
+      }
+    })
+
     this.background.setScrollFactor(0)
     this.backgroundCloud.setScrollFactor(0)
     // this.cameras.main.setBounds(0, 0, 4096, 640)
     // this.cameras.main.startFollow(this.player.object, true)
 
     this.scene.launch('GameHUD')
+
     // Starts start animation
     this.input.keyboard.enabled = false
     this.player.object.y = 0
@@ -65,9 +94,19 @@ export class UnderworldStage extends Phaser.Scene {
         currentScene.scene.pause()
       }
     })
+
+    currentScene.scene.moveBelow('UnderworldStage', 'Gameover')
+    // this.input.keyboard.on('keydown', (event) => {
+    //   if (event.keyCode === Phaser.Input.Keyboard.KeyCodes.Q) {
+    //     currentScene.sound.stopAll()
+    //     currentScene.scene.launch('Gameover', [512, 320, 0])
+    //     currentScene.scene.pause()
+    //   }
+    // })
+
     // this.chunkSystem.updateChunks(this)
-    this.chunkSystem.conumeTiles(this.chunkSystem.chunks[1].layer)
-    this.chunkSystem.generateHeightTiles(this.chunkSystem.chunks[2].layer)
+    // this.chunkSystem.conumeTiles(this.chunkSystem.chunks[1].layer)
+    // this.chunkSystem.generateHeightTiles(this.chunkSystem.chunks[2].layer)
     this.chunkSystem.generateSpikeTiles(this.chunkSystem.chunks[1])
     this.chunkSystem.generateSpikeTiles(this.chunkSystem.chunks[2])
     this.chunkSystem.generateSpikeTiles(this.chunkSystem.chunks[3])
@@ -89,7 +128,6 @@ export class UnderworldStage extends Phaser.Scene {
     this.currentLayerText.setText('Current Chunk: ' + this.chunkSystem.currentChunk(this.player.object.x))
 
     if (!this.startAnimation) {
-      // console.log('Camera: ', this.cameras.main.scrollX)
       this.cameras.main.scrollX += speed * delta
       this.player.object.setVelocityX(1000 * speed)
       this.background.tilePositionX += speed * 0.3
@@ -110,11 +148,13 @@ export class UnderworldStage extends Phaser.Scene {
       })
       this.chunkSystem.updateChunks(this)
     }
+
     this.chunkSystem.spikesGroup.children.iterate((spike) => {
       if (spike && spike.x - this.cameras.main.scrollX < -64) {
         spike.destroy()
       }
     })
+
     this.player.update(this)
     this.entitiesManager.update(this)
   }

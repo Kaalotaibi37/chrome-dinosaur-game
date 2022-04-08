@@ -7,21 +7,21 @@ import { Leaderboard } from '../ui/leaderboard.js'
  */
 export class Gameover extends Phaser.Scene {
   constructor () {
-    super()
-    Phaser.Scene.call(this, { key: 'Gameover' })
+    super({ key: 'Gameover' })
+    // Phaser.Scene.call(this, { key: 'Gameover' })
   }
 
   create (data) {
+    console.log(data)
     this.leaderboard = new Leaderboard()
-    this.leaderboard.create(this, data[2])
-
-    this.player = this.physics.add.sprite(52, 58, 'player', 14)
+    this.leaderboard.create(this, data.score)
 
     this.lostLifeAudio = this.sound.add('lostLife')
     this.lostLifeAudio.play()
 
-    this.player.x = data[0]
-    this.player.y = data[1]
+    this.player = this.physics.add.sprite(52, 58, 'player', 14)
+    this.player.x = data.x % 1024
+    this.player.y = data.y
     this.player.setScale(2)
     this.player.play('death')
     this.playDeathAnimation = false
@@ -32,13 +32,11 @@ export class Gameover extends Phaser.Scene {
       callback: () => (this.playDeathAnimation = true)
     })
 
-    this.leaderboard.create(this, data[2])
-
     const currentScene = this
     this.input.keyboard.on('keydown', function (event) {
       if (event.keyCode === Phaser.Input.Keyboard.KeyCodes.SPACE) {
         if (currentScene.showLeaderboard) {
-          currentScene.scene.start('Game')
+          currentScene.scene.start('UnderworldStage')
           currentScene.scene.stop()
         }
       }

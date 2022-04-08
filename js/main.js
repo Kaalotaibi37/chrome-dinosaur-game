@@ -15,7 +15,7 @@ const config = {
   type: Phaser.WebGL, // Tell phaser to choose either Canvas or WebGL for rendering
   width: 64 * 16,
   height: 64 * 10,
-  transparent: false,
+  transparent: true,
   pixelArt: true, // Disables anti aliasing for sharper pixels.
   canvas: document.getElementById('myCanvas'), // Let the framework to choose my own Canvas
   physics: {
@@ -29,7 +29,7 @@ const config = {
       fixedStep: false
     }
   },
-  scene: [Preload, Game, UnderworldStage, Gameover, Pause, GameHUD]
+  scene: [Preload, Gameover, Game, UnderworldStage, Pause, GameHUD]
 }
 
 // Launch the game.
