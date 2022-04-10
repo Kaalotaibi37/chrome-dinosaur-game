@@ -151,9 +151,14 @@ export class Player {
       case this.state.DEAD: {
         scene.sound.stopAll()
         player.visible = false
+        const currentChunk = scene.chunkSystem.currentChunk(player.x)
+        const mod = currentChunk * 1024
+        console.log('Death at chunk: ', currentChunk)
+        console.log('Death x value: ', (player.x / 4096) * 1024)
+        console.log('Player x position: ', player.x)
         scene.scene.launch('Gameover', {
-          x: player.x,
-          y: player.y,
+          x: player.x - scene.cameras.main.worldView.x,
+          y: player.y - scene.cameras.main.worldView.y,
           score: 0
         })
         scene.scene.pause()
