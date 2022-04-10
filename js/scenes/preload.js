@@ -61,7 +61,7 @@ export class Preload extends Phaser.Scene {
       loadingText.destroy()
       precentText.destroy()
       assetText.destroy()
-      this.scene.start('UnderworldStage')
+      this.scene.start('OverworldStage')
       this.scene.stop()
     })
 

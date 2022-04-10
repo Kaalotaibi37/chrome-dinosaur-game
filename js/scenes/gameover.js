@@ -36,7 +36,7 @@ export class Gameover extends Phaser.Scene {
     this.input.keyboard.on('keydown', function (event) {
       if (event.keyCode === Phaser.Input.Keyboard.KeyCodes.SPACE) {
         if (currentScene.showLeaderboard) {
-          currentScene.scene.start('UnderworldStage')
+          currentScene.scene.start('OverworldStage')
           currentScene.scene.stop()
         }
       }

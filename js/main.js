@@ -1,9 +1,9 @@
 import { Preload } from './scenes/preload.js'
-import { Game } from './scenes/game.js'
+// import { Game } from './scenes/game.js'
 import { Gameover } from './scenes/gameover.js'
 import { Pause } from './scenes/pause.js'
 import { GameHUD } from './scenes/gui.js'
-import { UnderworldStage } from './scenes/stages/underworld.js'
+import { OverworldStage } from './scenes/stages/overworld.js'
 
 Math.lerp = (value0, value1, t) => {
   return (1 - t) * value0 + t * value1
@@ -29,7 +29,7 @@ const config = {
       fixedStep: false
     }
   },
-  scene: [Preload, Gameover, Game, UnderworldStage, Pause, GameHUD]
+  scene: [Preload, Gameover, OverworldStage, Pause, GameHUD]
 }
 
 // Launch the game.

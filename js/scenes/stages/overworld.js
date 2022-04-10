@@ -4,10 +4,9 @@ import { EntitiesManager, tags } from '../../entities/entities.js'
 import eventsCenter from '../../utils/eventsCenter.js'
 
 /* eslint-disable no-undef */
-export class UnderworldStage extends Phaser.Scene {
+export class OverworldStage extends Phaser.Scene {
   constructor () {
-    super()
-    Phaser.Scene.call(this, { key: 'UnderworldStage' })
+    super({ key: 'OverworldStage' })
   }
 
   create (data) {
@@ -63,8 +62,6 @@ export class UnderworldStage extends Phaser.Scene {
 
     this.background.setScrollFactor(0)
     this.backgroundCloud.setScrollFactor(0)
-    // this.cameras.main.setBounds(0, 0, 4096, 640)
-    // this.cameras.main.startFollow(this.player.object, true)
 
     this.scene.launch('GameHUD')
 
@@ -89,27 +86,18 @@ export class UnderworldStage extends Phaser.Scene {
         currentScene.sound.pauseAll()
         currentScene.scene.launch('Pause', {
           sound: currentScene.sound,
-          key: 'UnderworldStage'
+          key: 'OverworldStage'
         })
         currentScene.scene.pause()
       }
     })
 
-    currentScene.scene.moveBelow('UnderworldStage', 'Gameover')
-    // this.input.keyboard.on('keydown', (event) => {
-    //   if (event.keyCode === Phaser.Input.Keyboard.KeyCodes.Q) {
-    //     currentScene.sound.stopAll()
-    //     currentScene.scene.launch('Gameover', [512, 320, 0])
-    //     currentScene.scene.pause()
-    //   }
-    // })
+    currentScene.scene.moveBelow('OverworldStage', 'Gameover')
 
-    // this.chunkSystem.updateChunks(this)
-    // this.chunkSystem.conumeTiles(this.chunkSystem.chunks[1].layer)
-    // this.chunkSystem.generateHeightTiles(this.chunkSystem.chunks[2].layer)
     this.chunkSystem.generateSpikeTiles(this.chunkSystem.chunks[1])
     this.chunkSystem.generateSpikeTiles(this.chunkSystem.chunks[2])
     this.chunkSystem.generateSpikeTiles(this.chunkSystem.chunks[3])
+
     this.currentLayerText = this.add.text(512, 10, 'Current Chunk')
     this.currentLayerText.setScale(3)
     this.currentLayerText.setScrollFactor(0)
