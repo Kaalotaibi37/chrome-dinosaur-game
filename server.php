@@ -32,7 +32,7 @@
 
     // if there are no errors, register the user to the database
     if(count($errors) == 0){
-      $secure_password = md5($password_1); // encrypt the password before storing in db
+      $secure_password = password_hash($password_1, PASSWORD_DEFAULT); // encrypt the password before storing in db
       $sql = "INSERT INTO user (username, email, s_password) VALUES('$username', '$email', '$secure_password')";
       mysqli_query($db, $sql);
 
@@ -57,7 +57,7 @@
 
       if(count($errors) == 0){
         
-        $secure_password = md5($password); // encrypt the password before storing in db
+        $secure_password = password_verify($password, $user['s_password']);
         $query = "SELECT * FROM user WHERE username='$username' AND s_password='$secure_password'";
         $result = mysqli_query($db, $query);  
         if(mysqli_num_rows($result) == 1){ // if true, login user
