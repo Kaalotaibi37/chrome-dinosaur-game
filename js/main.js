@@ -1,5 +1,4 @@
 import { Preload } from './scenes/preload.js'
-// import { Game } from './scenes/game.js'
 import { Gameover } from './scenes/gameover.js'
 import { Pause } from './scenes/pause.js'
 import { GameHUD } from './scenes/gui.js'

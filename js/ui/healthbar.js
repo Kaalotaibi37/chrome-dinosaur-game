@@ -2,11 +2,12 @@ export class Healthbar {
   create (scene) {
     this.health = scene.add.group()
     this.scene = scene
+    this.height = 64
   }
 
   initial (health) {
     for (let i = 0; i < health; i++) {
-      this.health.add(this.scene.add.image(32 * i + 32 + i, 32, 'heart'))
+      this.health.add(this.scene.add.image(32 * i + 32 + i, this.height, 'heart'))
     }
   }
 
@@ -22,7 +23,7 @@ export class Healthbar {
 
     if (health > this.health.getLength()) {
       for (let i = this.health.getLength(); i < health; i++) {
-        this.health.add(this.scene.add.image(32 * i + 32 + i, 32, 'heart'))
+        this.health.add(this.scene.add.image(32 * i + 32 + i, this.height, 'heart'))
       }
 
       console.group('Healthbar: lost health')

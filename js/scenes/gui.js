@@ -13,6 +13,13 @@ export class GameHUD extends Phaser.Scene {
     this.healthbar.create(this)
     this.healthbar.initial(5)
 
+    this.username = this.add.text(16, 8, 'Username')
+    this.username.setScale(2)
+
+    fetch('/game/username.php')
+      .then(data => data.json())
+      .then(username => this.username.setText(username))
+
     const updateHealth = (health) => this.healthbar.draw(health)
     eventsCenter.on('update-health', updateHealth, this)
 
