@@ -154,7 +154,7 @@ export class Player {
         scene.scene.launch('Gameover', {
           x: player.x - scene.cameras.main.worldView.x,
           y: player.y - scene.cameras.main.worldView.y,
-          score: 0
+          score: scene.score
         })
         scene.scene.pause()
         break

@@ -101,6 +101,20 @@ export class OverworldStage extends Phaser.Scene {
     this.currentLayerText = this.add.text(512, 10, 'Current Chunk')
     this.currentLayerText.setScale(3)
     this.currentLayerText.setScrollFactor(0)
+
+    // Score system
+    this.scoreText = this.add.text(16, 100, 'Score: 0')
+    this.scoreText.setScale(2)
+    this.scoreText.setScrollFactor(0)
+    this.score = 0
+    this.time.addEvent({
+      delay: 500,
+      callback: () => {
+        this.score += 1
+        this.scoreText.setText('Score: ' + this.score)
+      },
+      loop: true
+    })
   }
 
   update (_, delta) {
