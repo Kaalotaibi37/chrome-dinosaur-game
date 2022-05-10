@@ -26,7 +26,9 @@ The project is building a clone of the Dino chrome game but with added functiona
 - Dedicated back-end with relational database.
 
 ## Built With
-
+- <a href="https://github.com/othneildrew/Best-README-Template">Phaser 3</a>
+- <a href="https://www.aseprite.org/">Aseprite</a>
+- <a href="https://code.visualstudio.com/">VS Code</a>
 ## Stack
 
 WIP
