@@ -99,9 +99,9 @@ export class OverworldStage extends Phaser.Scene {
     this.chunkSystem.generateSpikeTiles(this.chunkSystem.chunks[2])
     this.chunkSystem.generateSpikeTiles(this.chunkSystem.chunks[3])
 
-    this.currentLayerText = this.add.text(512, 10, 'Current Chunk')
-    this.currentLayerText.setScale(3)
-    this.currentLayerText.setScrollFactor(0)
+    // this.currentLayerText = this.add.text(512, 10, 'Current Chunk')
+    // this.currentLayerText.setScale(3)
+    // this.currentLayerText.setScrollFactor(0)
 
     this.time.addEvent({
       delay: 500,
@@ -126,7 +126,7 @@ export class OverworldStage extends Phaser.Scene {
     // const speed = 0
     const speed = 0.5
 
-    this.currentLayerText.setText('Current Chunk: ' + this.chunkSystem.currentChunk(this.player.object.x))
+    // this.currentLayerText.setText('Current Chunk: ' + this.chunkSystem.currentChunk(this.player.object.x))
 
     if (!this.startAnimation) {
       this.cameras.main.scrollX += speed * delta

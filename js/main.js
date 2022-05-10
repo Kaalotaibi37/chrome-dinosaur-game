@@ -8,6 +8,8 @@ Math.lerp = (value0, value1, t) => {
   return (1 - t) * value0 + t * value1
 }
 
+console.log = () => {}
+
 /* This is the config for the game's scene */
 const config = {
   // eslint-disable-next-line no-undef
@@ -21,7 +23,7 @@ const config = {
     // The game's physics configuration
     default: 'arcade',
     arcade: {
-      debug: true,
+      debug: false,
       isPaused: false,
       width: 4096,
       height: 640,
