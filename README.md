@@ -29,6 +29,7 @@ The project is building a clone of the Dino chrome game but with added functiona
 - <a href="https://github.com/othneildrew/Best-README-Template">Phaser 3</a>
 - <a href="https://www.aseprite.org/">Aseprite</a>
 - <a href="https://code.visualstudio.com/">VS Code</a>
+- <a href="https://www.apachefriends.org/index.html">XAMPP</a>
 ## Stack
 
 WIP
