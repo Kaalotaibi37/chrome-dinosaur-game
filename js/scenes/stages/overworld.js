@@ -111,6 +111,9 @@ export class OverworldStage extends Phaser.Scene {
       },
       loop: true
     })
+
+    // Play music
+    this.sound.play('overworld', { volume: 0.3 })
   }
 
   update (_, delta) {
