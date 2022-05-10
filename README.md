@@ -25,6 +25,8 @@ The project is building a clone of the Dino chrome game but with added functiona
 - Game score history.
 - Dedicated back-end with relational database.
 
+## Built With
+
 ## Stack
 
 WIP
