@@ -51,7 +51,7 @@ export class Leaderboard {
           return [key, responses[1][key]]
         })
 
-        scores.push([responses[0].updated ? 'You (NEW!)' : 'You', responses[0].new_score])
+        scores.push([responses[0].updated ? 'You (NEW!)' : `You (${responses[0].old_score})`, responses[0].new_score])
         scores.sort((value1, value2) => value2[1] - value1[1])
 
         const leaderboardContent = scores.map(

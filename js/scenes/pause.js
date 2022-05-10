@@ -6,12 +6,11 @@
 export class Pause extends Phaser.Scene {
   constructor () {
     super({ key: 'Pause' })
-    // Phaser.Scene.call(this, { key: 'Pause' })
   }
 
   create (data) {
     this.pauseSound = this.sound.add('pause')
-    this.add.sprite(400, 300, 'pause')
+    this.add.sprite(512, 300, 'pause')
 
     this.pauseSound.play()
 

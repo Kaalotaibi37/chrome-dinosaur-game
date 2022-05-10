@@ -19,13 +19,13 @@ if (!array_key_exists('username', $_SESSION)) {
 
 <body>
   <header>
-    <h1>Chrome Dinosaur Game</h1>
+    <img style="margin: 2rem; width: 20rem;" src="./assets/Title.png" alt="">
   </header>
 
   <!-- My own canvas -->
   <canvas id="myCanvas"></canvas>
   <section id="content">
-    <h1>Footer</h1>
+    <img id="keyboard" src="./assets/keyboards.png" alt="keyboard" style="width: 30rem;">
   </section>
 
   <!-- The framework module -->
