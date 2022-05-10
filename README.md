@@ -7,7 +7,6 @@
 <br />
 <div align="center">
 
-  <h3 align="center">Chrome Dinosaur Game</h3>
   <img src="dino_image.png" alt="Logo" width="400" height="200">
   <p align="center">
     lllllllllllllllllllllllllll
