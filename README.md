@@ -19,7 +19,7 @@ This is an undergraduate computer science project for Internet Technologies CS43
 
 ## Overview
 
-The project is building a clone of the Dino chrome game but with added functionalities:
+In this project, we built a chrome dinosaur game with a different theme and more functionalities called Dino Run. The chrome dinosaur game right now does not have lots of mechanics and only has minimal graphics. We strive to make it look better and more fun to play. The target audience for the game is all people of all ages who enjoy video games. 
 
 - User authentication.
 - Game score history.
