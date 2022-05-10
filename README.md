@@ -3,7 +3,17 @@
 [![Stargazers][stars-shield]][stars-url]
 [![Issues][issues-shield]][issues-url]
 
-# Chrome Dinosaur Game
+<!-- PROJECT LOGO -->
+<br />
+<div align="center">
+
+  <img src="dino_image.png" alt="Logo" width="400" height="200">
+  <p align="center">
+    lllllllllllllllllllllllllll
+    <br />
+    <a href="https://github.com/Kaalotaibi37/chrome-dinosaur-game/issues">Report Bug</a>
+  </p>
+</div>
 
 This is an undergraduate computer science project for Internet Technologies CS438 at Imam Mohammad Ibn Saud Islamic University.
 
@@ -15,7 +25,18 @@ The project is building a clone of the Dino chrome game but with added functiona
 - Game score history.
 - Dedicated back-end with relational database.
 
-## Stack
+### Built With
+- <a href="https://phaser.io/">Phaser 3</a>
+- <a href="https://www.aseprite.org/">Aseprite</a>
+- <a href="https://code.visualstudio.com/">VS Code</a>
+- <a href="https://www.apachefriends.org/index.html">XAMPP</a>
+
+### Installation
+1. Clone the repository
+   ```sh
+   git clone https://github.com/Kaalotaibi37/chrome-dinosaur-game.git
+   ```
+### Stack
 
 WIP
 
