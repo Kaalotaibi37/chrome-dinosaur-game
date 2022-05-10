@@ -8,23 +8,6 @@ export class Leaderboard {
       return (1 - t) * value0 + t * value1
     }
 
-    // const scores = [
-    //   ['You', score],
-    //   ['mssalkhalifah', Math.floor(Math.random() * 250)],
-    //   ['Kaalotaibi37', Math.floor(Math.random() * 250)],
-    //   ['Mass-99', Math.floor(Math.random() * 250)],
-    //   ['Cheese Lord', Math.floor(Math.random() * 250)],
-    //   ['YUsef68', Math.floor(Math.random() * 250)],
-    //   ['A5ma5deen', Math.floor(Math.random() * 250)],
-    //   ['Fozan-123', Math.floor(Math.random() * 250)],
-    //   ['( ͡° ͜ʖ ͡°)L', Math.floor(Math.random() * 1000)]
-    // ]
-
-    // scores.sort((value1, value2) => value2[1] - value1[1])
-    // const leaderboardContent = scores.map(
-    //   (value) => `${value[0]} ... ${value[1]}`
-    // )
-
     const graphics = scene.make.graphics()
     graphics.fillRect(152, 133, 360, 320)
     const mask = new Phaser.Display.Masks.GeometryMask(scene, graphics)

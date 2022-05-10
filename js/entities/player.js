@@ -92,8 +92,7 @@ export class Player {
   update (scene) {
     const player = this.object
 
-    // player.x = (player.x + 1) % 3072
-    // player.setVelocityX(500)
+    // console.log('Player y: ', player.y)
 
     if (player.anims.msPerFrame > this.maxAnimationThreshHold) {
       player.anims.msPerFrame = 100 - scene.distance * 0.5
@@ -101,17 +100,15 @@ export class Player {
       player.anims.msPerFrame = this.maxAnimationThreshHold
     }
 
-    if (player.health <= 0) {
+    if (player.health <= 0 || player.y >= 584) {
       this.currentState = this.state.DEAD
     }
 
     if (this.cursor.right.isDown) {
-      // console.log('Player x: ', player.x)
       player.setVelocityX(700)
     }
 
     if (this.cursor.left.isDown) {
-      // console.log('Player x: ', player.x)
       player.setVelocityX(-50)
     }
 
