@@ -6,7 +6,7 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <img src="icon.png" alt="Logo" width="80" height="80">
+![Game Icon](https://res.cloudinary.com/domq50ciy/image/upload/v1647705556/Dino%20Chrome%20Project/dino_pfbw2s.png)
 
   <h3 align="center">Chrome Dinosaur Game</h3>
   
