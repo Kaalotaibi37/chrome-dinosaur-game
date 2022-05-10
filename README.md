@@ -3,7 +3,19 @@
 [![Stargazers][stars-shield]][stars-url]
 [![Issues][issues-shield]][issues-url]
 
-# Chrome Dinosaur Game
+<!-- PROJECT LOGO -->
+<br />
+<div align="center">
+  <img src="icon.png" alt="Logo" width="80" height="80">
+
+  <h3 align="center">Chrome Dinosaur Game</h3>
+  
+  <p align="center">
+    lllllllllllllllllllllllllll
+    <br />
+    <a href="https://github.com/Kaalotaibi37/chrome-dinosaur-game/issues">Report Bug</a>
+  </p>
+</div>
 
 This is an undergraduate computer science project for Internet Technologies CS438 at Imam Mohammad Ibn Saud Islamic University.
 
