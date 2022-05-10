@@ -1,26 +1,27 @@
 /* eslint-disable no-undef */
 export class Leaderboard {
   create (scene, score) {
-    this.finalPosition = 250
+    this.finalPosition = 300
     this.alpha = 0
+    this.leaderboardWidth = 512
     this.spinnerAlpha = 0
     this.lerp = (value0, value1, t) => {
       return (1 - t) * value0 + t * value1
     }
 
     const graphics = scene.make.graphics()
-    graphics.fillRect(152, 133, 360, 320)
+    graphics.fillRect(152, 163, this.leaderboardWidth, 320)
     const mask = new Phaser.Display.Masks.GeometryMask(scene, graphics)
 
     this.score = score
-    this.leaderboard = scene.add.sprite(400, -250, 'leaderboard')
+    this.leaderboard = scene.add.sprite(this.leaderboardWidth, -250, 'leaderboard')
     this.leaderboard.setScale(1.2)
     this.leaderboard.setVisible(false)
     this.leaderboard.setAlpha(0)
 
-    this.arrow_down = scene.add.sprite(230, -293, 'arrow_down')
-    this.arrow_up = scene.add.sprite(230, -250, 'arrow_up')
-    this.spacebar = scene.add.sprite(400, -250, 'spacebar')
+    this.arrow_down = scene.add.sprite(this.leaderboardWidth - 200, -293, 'arrow_down')
+    this.arrow_up = scene.add.sprite(this.leaderboardWidth - 200, -250, 'arrow_up')
+    this.spacebar = scene.add.sprite(this.leaderboardWidth, -250, 'spacebar')
 
     this.arrow_up.setScale(2)
     this.arrow_up.setAlpha(0)
@@ -29,10 +30,10 @@ export class Leaderboard {
     this.spacebar.setScale(2)
     this.spacebar.setAlpha(0)
 
-    this.loadingSpinner = scene.add.sprite(400, -250, 'loading')
+    this.loadingSpinner = scene.add.sprite(this.leaderboardWidth, -250, 'loading')
     this.loadingSpinner.setAlpha(0, 0, 0, 0)
 
-    this.text = scene.add.text(300, 140, '').setOrigin(0)
+    this.text = scene.add.text(this.leaderboardWidth - 100, 180, '').setOrigin(0)
     this.text.setMask(mask)
     this.text.setAlpha(0)
 
@@ -128,7 +129,7 @@ export class Leaderboard {
     scene.input.keyboard.on('keydown', function (event) {
       switch (event.keyCode) {
         case Phaser.Input.Keyboard.KeyCodes.UP:
-          if (leaderboardValue.y < 140) {
+          if (leaderboardValue.y < 180) {
             leaderboardValue.y += 10
             arrowUp.play('arrow_up_hold')
           }
@@ -146,12 +147,12 @@ export class Leaderboard {
   update (visible) {
     if (visible) {
       this.leaderboard.setVisible(true)
-      if (this.leaderboard.y < 250) {
-        this.leaderboard.y = this.lerp(251, this.leaderboard.y, 0.9)
-        this.loadingSpinner.y = this.lerp(251, this.loadingSpinner.y, 0.9)
-        this.arrow_up.y = this.lerp(250, this.arrow_up.y, 0.9)
-        this.arrow_down.y = this.lerp(293, this.arrow_down.y, 0.9)
-        this.spacebar.y = this.lerp(520, this.spacebar.y, 0.9)
+      if (this.leaderboard.y < this.finalPosition) {
+        this.leaderboard.y = this.lerp(this.finalPosition + 1, this.leaderboard.y, 0.9)
+        this.loadingSpinner.y = this.lerp(this.finalPosition + 1, this.loadingSpinner.y, 0.9)
+        this.arrow_up.y = this.lerp(this.finalPosition, this.arrow_up.y, 0.9)
+        this.arrow_down.y = this.lerp(this.finalPosition + 43, this.arrow_down.y, 0.9)
+        this.spacebar.y = this.lerp(this.finalPosition + 270, this.spacebar.y, 0.9)
         if (this.alpha <= 1) {
           this.alpha += 0.02
           this.spacebar.setAlpha(this.alpha)
