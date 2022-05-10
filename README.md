@@ -36,7 +36,7 @@ The project is building a clone of the Dino chrome game but with added functiona
    ```sh
    git clone https://github.com/Kaalotaibi37/chrome-dinosaur-game.git
    ```
-2. Download Zip file <a href="https://github.com/Kaalotaibi37/chrome-dinosaur-game/archive/refs/heads/main.zip">Here</a>.
+2. Download the project as a Zip file <a href="https://github.com/Kaalotaibi37/chrome-dinosaur-game/archive/refs/heads/main.zip">here</a>.
 ### Stack
 
 WIP
