@@ -32,7 +32,7 @@ The project is building a clone of the Dino chrome game but with added functiona
 - <a href="https://www.apachefriends.org/index.html">XAMPP</a>
 
 ### Installation
-1. Clone the repo
+1. Clone the repository
    ```sh
    git clone https://github.com/Kaalotaibi37/chrome-dinosaur-game.git
    ```
