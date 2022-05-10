@@ -25,12 +25,18 @@ The project is building a clone of the Dino chrome game but with added functiona
 - Game score history.
 - Dedicated back-end with relational database.
 
-## Built With
+### Built With
 - <a href="https://phaser.io/">Phaser 3</a>
 - <a href="https://www.aseprite.org/">Aseprite</a>
 - <a href="https://code.visualstudio.com/">VS Code</a>
 - <a href="https://www.apachefriends.org/index.html">XAMPP</a>
-## Stack
+
+### Installation
+1. Clone the repo
+   ```sh
+   git clone https://github.com/Kaalotaibi37/chrome-dinosaur-game.git
+   ```
+### Stack
 
 WIP
 
