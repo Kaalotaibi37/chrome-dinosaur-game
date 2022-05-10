@@ -6,6 +6,7 @@ body {
   flex-direction: column;
   justify-content: center;
   place-items: center;
+  background-color: #90EE90;
 }
 
 #content {
@@ -13,5 +14,10 @@ body {
   flex-direction: column;
   justify-items: center;
   place-items: center;
-  width: 75%;
+  margin-top: 1rem;
+}
+
+@font-face {
+  font-family: ARCADECLASSIC;
+  src: url('./assets/fonts/Arcade classic/ARCADECLASSIC.TTF');
 }
