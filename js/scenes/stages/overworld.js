@@ -16,6 +16,7 @@ export class OverworldStage extends Phaser.Scene {
     this.backgroundCloud = this.add.tileSprite(512, 320, 1024, 640, 'backgroundClouds')
     this.globalTileSpeed = 1
     this.distance = 100
+    this.score = 0
 
     this.chunkSystem = new ChunkSystem(4, 4096)
     this.player = new Player()
@@ -102,16 +103,11 @@ export class OverworldStage extends Phaser.Scene {
     this.currentLayerText.setScale(3)
     this.currentLayerText.setScrollFactor(0)
 
-    // Score system
-    this.scoreText = this.add.text(16, 100, 'Score: 0')
-    this.scoreText.setScale(2)
-    this.scoreText.setScrollFactor(0)
-    this.score = 0
     this.time.addEvent({
       delay: 500,
       callback: () => {
         this.score += 1
-        this.scoreText.setText('Score: ' + this.score)
+        eventsCenter.emit('update-score', this.score)
       },
       loop: true
     })

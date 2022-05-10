@@ -16,3 +16,8 @@ body {
   place-items: center;
   margin-top: 1rem;
 }
+
+@font-face {
+  font-family: ARCADECLASSIC;
+  src: url('./assets/fonts/Arcade classic/ARCADECLASSIC.TTF');
+}
