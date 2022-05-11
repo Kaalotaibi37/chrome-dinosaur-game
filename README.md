@@ -77,8 +77,8 @@ WIP
 [maas-99]: https://github.com/Maas-99
 [mssalkhalifah]: https://github.com/mssalkhalifah
 
-[kaalotaibi37-ln]: https://www.linkedin.com/in/khalidalotaibi37/
-[maas-99-ln]: https://www.linkedin.com/in/mansour-alsaleh/
-[mssalkhalifah-ln]: https://www.linkedin.com/in/mssalkhalifah/
+[kaalotaibi37]: https://www.linkedin.com/in/khalidalotaibi37/
+[maas-99]: https://www.linkedin.com/in/mansour-alsaleh/
+[mssalkhalifah]: https://www.linkedin.com/in/mssalkhalifah/
 
 
