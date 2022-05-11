@@ -41,7 +41,7 @@ local web server such as <a href="https://www.apachefriends.org/index.html">XAMP
 2. Download the project as a Zip file <a href="https://github.com/Kaalotaibi37/chrome-dinosaur-game/archive/refs/heads/main.zip">here</a>.
 
 ### Running The Game
-After downloading the project, xxxxxxxx
+After downloading the project, add the unziped folder to your local server document_root directory. Then run the folder from your local host.
 ### Stack
 
 WIP
