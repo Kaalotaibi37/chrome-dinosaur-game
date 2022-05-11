@@ -41,12 +41,13 @@ local web server such as <a href="https://www.apachefriends.org/index.html">XAMP
 2. Download the project as a Zip file <a href="https://github.com/Kaalotaibi37/chrome-dinosaur-game/archive/refs/heads/main.zip">here</a>.
 
 ### Running The Game
-After downloading the project, add the unziped folder to your local server document_root directory. Then create a database named gameserver and import gameserver.sql table. Afterwards, run the folder that contains the games file from your local host.
+After downloading the project, add the unziped folder to your local server document_root directory. Then create a database named gameserver and import gameserver.sql table. Finally, run the folder that contains the games file from your local host.
 
 <div align="center">
   <img src="game.gif" alt="game_gif" width="600" height="400">
 </div>
 
+**For more detailed information kindly check the <a href="https://github.com/Kaalotaibi37/chrome-dinosaur-game/wiki">Wiki</a>.
 
 ## Contributers
 
