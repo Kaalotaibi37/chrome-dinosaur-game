@@ -48,15 +48,13 @@ WIP
 
 ## Contributers
 
-| Student                      |    ID     |     Github      |
-| :--------------------------- | :-------: | :-------------: |
-| Khalid Abdulaziz Alotaibi    | 439012737 | [Kaalotaibi37]  |
-| Mansour Abdulaziz Alsaleh    | 440029449 |    [Maas-99]    |
-| Mohammad Sulaiman Alkhalifah | 439011298 | [mssalkhalifah] |
+| Student                      |    Linkedin        |     Github      |
+| :--------------------------- | :----------------: | :-------------: |
+| Khalid Abdulaziz Alotaibi    | [kaalotaibi37-ln]  | [Kaalotaibi37]  |
+| Mansour Abdulaziz Alsaleh    | [maas-99-ln]       |    [Maas-99]    |
+| Mohammad Sulaiman Alkhalifah | [mssalkhalifah-ln] | [mssalkhalifah] |
 
-[kaalotaibi37]: https://github.com/Kaalotaibi37
-[maas-99]: https://github.com/Maas-99
-[mssalkhalifah]: https://github.com/mssalkhalifah
+
 
 ## Acknowledgments
 - <a href="https://ansimuz.itch.io/sunny-land-pixel-game-art">SunnyIsland</a>
@@ -74,3 +72,13 @@ WIP
 [stars-url]: https://github.com/Kaalotaibi37/chrome-dinosaur-game/stargazers
 [issues-shield]: https://img.shields.io/github/issues/Kaalotaibi37/chrome-dinosaur-game.svg?style=flat-square
 [issues-url]: https://github.com/Kaalotaibi37/chrome-dinosaur-game/issues
+
+[kaalotaibi37]: https://github.com/Kaalotaibi37
+[maas-99]: https://github.com/Maas-99
+[mssalkhalifah]: https://github.com/mssalkhalifah
+
+[kaalotaibi37-ln]: https://www.linkedin.com/in/khalidalotaibi37/
+[maas-99-ln]: https://www.linkedin.com/in/mansour-alsaleh/
+[mssalkhalifah-ln]: https://www.linkedin.com/in/mssalkhalifah/
+
+
