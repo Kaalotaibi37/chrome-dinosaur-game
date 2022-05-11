@@ -1,7 +1,8 @@
 <?php
 include('server.php');
-if (!array_key_exists('username', $_SESSION)) {
-  header("Location: register.php");
+
+if (!isset($_SESSION['username'])) {
+  header("Location: index.php");
 }
 
 ?>
@@ -30,6 +31,9 @@ if (!array_key_exists('username', $_SESSION)) {
   <canvas id="myCanvas"></canvas>
   <section id="content">
     <img id="keyboard" src="./assets/keyboards.png" alt="keyboard" style="width: 30rem;">
+    <a href="logout.php">
+      <button id="logoutButton" style="margin-top: 2rem;">Log out</button>
+    </a>
   </section>
 
   <!-- The framework module -->
