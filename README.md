@@ -30,6 +30,9 @@ This is an undergraduate computer science project for Internet Technologies CS43
 ## Getting Started 
 To get a local copy up and running follow these simple steps.
 
+### Prerequisites
+local web server such as <a href="https://www.apachefriends.org/index.html">XAMPP</a> and <a href="https://www.wampserver.com/en/">WAMP</a>
+
 ### Installation
 1. Clone the repository
    ```sh
