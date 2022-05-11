@@ -58,9 +58,9 @@ WIP
 [maas-99]: https://github.com/Maas-99
 [mssalkhalifah]: https://github.com/mssalkhalifah
 
-## Credit
-
-WIP
+## Acknowledgments
+- <a href="https://ansimuz.itch.io/sunny-land-pixel-game-art">SunnyIsland</a>
+- <a href="https://opengameart.org/content/meteor-animated-64x64">OpenGameArt</a>
 
 <!-- MARKDOWN LINKS -->
 
