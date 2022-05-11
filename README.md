@@ -47,7 +47,7 @@ After downloading the project, add the unziped folder to your local server docum
   <img src="game.gif" alt="game_gif" width="600" height="400">
 </div>
 
-**For more detailed information kindly check the **<a href="https://github.com/Kaalotaibi37/chrome-dinosaur-game/wiki">Wiki</a>.
+**For more detailed information kindly check the**<a href="https://github.com/Kaalotaibi37/chrome-dinosaur-game/wiki">Wiki</a>.
 
 ## Contributers
 
