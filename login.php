@@ -1,7 +1,11 @@
 <?php
 include('server.php');
 
-if (!array_key_exists('username_login', $_POST) or !array_key_exists('password_login', $_POST)) {
+if (
+    !isset($_POST['username_login'])
+    or !isset($_POST['password_login'])
+    or !isset($_SESSION['username'])
+) {
     header('Location: index.php');
 }
 
