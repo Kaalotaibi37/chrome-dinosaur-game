@@ -27,12 +27,18 @@ This is an undergraduate computer science project for Internet Technologies CS43
 - <a href="https://code.visualstudio.com/">VS Code</a>
 - <a href="https://www.apachefriends.org/index.html">XAMPP</a>
 
+## Getting Started 
+To get a local copy up and running follow these simple steps.
+
 ### Installation
 1. Clone the repository
    ```sh
    git clone https://github.com/Kaalotaibi37/chrome-dinosaur-game.git
    ```
 2. Download the project as a Zip file <a href="https://github.com/Kaalotaibi37/chrome-dinosaur-game/archive/refs/heads/main.zip">here</a>.
+
+### Running The Game
+After downloading the project, xxxxxxxx
 ### Stack
 
 WIP
