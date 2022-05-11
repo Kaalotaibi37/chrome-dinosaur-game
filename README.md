@@ -9,7 +9,7 @@
 
   <img src="dino_image.png" alt="Logo" width="400" height="200">
   <p align="center">
-    lllllllllllllllllllllllllll
+    Web interactive game
     <br />
     <a href="https://github.com/Kaalotaibi37/chrome-dinosaur-game/issues">Report Bug</a>
   </p>
