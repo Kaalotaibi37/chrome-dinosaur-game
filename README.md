@@ -52,7 +52,7 @@ WIP
 | :--------------------------- | :----------------: | :-------------: |
 | Khalid Abdulaziz Alotaibi    | [khalidalotaibi37] | [Kaalotaibi37]  |
 | Mansour Abdulaziz Alsaleh    | [mansour-alsaleh]  |    [Maas-99]    |
-| Mohammad Sulaiman Alkhalifah | [mssalkhalifah]    | [mssalkhalifah] |
+| Mohammad Sulaiman Alkhalifah | [mssalkhalifah-ln]    | [mssalkhalifah] |
 
 
 
@@ -79,6 +79,6 @@ WIP
 
 [khalidalotaibi37]: https://www.linkedin.com/in/khalidalotaibi37/
 [mansour-alsaleh]: https://www.linkedin.com/in/mansour-alsaleh/
-[mssalkhalifah]: https://www.linkedin.com/in/mssalkhalifah/
+[mssalkhalifah-ln]: https://www.linkedin.com/in/mssalkhalifah/
 
 
