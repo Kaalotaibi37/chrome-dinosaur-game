@@ -50,9 +50,9 @@ WIP
 
 | Student                      |    Linkedin        |     Github      |
 | :--------------------------- | :----------------: | :-------------: |
-| Khalid Abdulaziz Alotaibi    | [kaalotaibi37-ln]  | [Kaalotaibi37]  |
-| Mansour Abdulaziz Alsaleh    | [maas-99-ln]       |    [Maas-99]    |
-| Mohammad Sulaiman Alkhalifah | [mssalkhalifah-ln] | [mssalkhalifah] |
+| Khalid Abdulaziz Alotaibi    | [khalidalotaibi37] | [Kaalotaibi37]  |
+| Mansour Abdulaziz Alsaleh    | [mansour-alsaleh]  |    [Maas-99]    |
+| Mohammad Sulaiman Alkhalifah | [mssalkhalifah]    | [mssalkhalifah] |
 
 
 
@@ -74,11 +74,11 @@ WIP
 [issues-url]: https://github.com/Kaalotaibi37/chrome-dinosaur-game/issues
 
 [kaalotaibi37]: https://github.com/Kaalotaibi37
-[maas-99]: https://github.com/Maas-99
+[Maas-99]: https://github.com/Maas-99
 [mssalkhalifah]: https://github.com/mssalkhalifah
 
-[kaalotaibi37]: https://www.linkedin.com/in/khalidalotaibi37/
-[maas-99]: https://www.linkedin.com/in/mansour-alsaleh/
+[khalidalotaibi37]: https://www.linkedin.com/in/khalidalotaibi37/
+[mansour-alsaleh]: https://www.linkedin.com/in/mansour-alsaleh/
 [mssalkhalifah]: https://www.linkedin.com/in/mssalkhalifah/
 
 
