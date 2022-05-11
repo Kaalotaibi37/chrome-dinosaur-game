@@ -23,10 +23,6 @@ In this project, we built a chrome dinosaur game with a different theme and more
 
 This is an undergraduate computer science project for Internet Technologies CS438 at Imam Mohammad Ibn Saud Islamic University.
 
-- User authentication.
-- Game score history.
-- Dedicated back-end with relational database.
-
 ### Built With
 - <a href="https://phaser.io/">Phaser 3</a>
 - <a href="https://www.aseprite.org/">Aseprite</a>
