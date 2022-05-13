@@ -41,7 +41,7 @@ local web server such as <a href="https://www.apachefriends.org/index.html">XAMP
 ### Installation
 1. Clone the repository
    ```sh
-   git clone https://github.com/Kaalotaibi37/chrome-dinosaur-game.git
+   git clone https://github.com/Kaalotaibi37/dino-run.git
    ```
 2. Download the project as a Zip file <a href="https://github.com/Kaalotaibi37/chrome-dinosaur-game/archive/refs/heads/main.zip">here</a>.
 
