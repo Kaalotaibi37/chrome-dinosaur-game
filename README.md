@@ -21,6 +21,8 @@ In this project, we built a chrome dinosaur game with a different theme and more
 
 This is an undergraduate computer science project for Internet Technologies CS438 at Imam Mohammad Ibn Saud Islamic University.
 
+### Goals
+
 ### Built With
 - <a href="https://phaser.io/">Phaser 3</a>
 - <a href="https://www.aseprite.org/">Aseprite</a>
