@@ -22,10 +22,9 @@ In this project, we built a chrome dinosaur game with a different theme and more
 This is an undergraduate computer science project for Internet Technologies CS438 at Imam Mohammad Ibn Saud Islamic University.
 
 ### Goals
-- Adding graphics to the game
-- Adding more obstacles and elevation
-- Creating a challenging and fun game
-- Having a place to store the high score 
+- Creating a challenging and fun game.
+- Creating a game that beautiful cartoonish design style.
+- Providing a competitiveness by creating a leaderboard.
 
 ### Built With
 - <a href="https://phaser.io/">Phaser 3</a>
