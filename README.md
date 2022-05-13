@@ -48,7 +48,8 @@ local web server such as <a href="https://www.apachefriends.org/index.html">XAMP
 ### Running The Game
 After downloading the project, add the unziped folder to your local server document_root directory. Then create a database named gameserver and import gameserver.sql table. Finally, run the folder that contains the games file from your local host.
 
-**Note: You need to create a database and name it gameserver then import gameserver.sql to the database.**
+**Note: You need to create a database and name it gameserver then import gameserver.sql to the database.** <br>
+Gmaeplay gif
 <div align="center">
   <img src="game.gif" alt="game_gif" width="600" height="400">
 </div>
