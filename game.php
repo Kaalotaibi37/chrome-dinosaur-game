@@ -15,7 +15,7 @@ if (!isset($_SESSION['username'])) {
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="./css/style.css" />
-  <link rel="preload" as="font" href="./assets/fonts/Arcade classic/ARCADECLASSIC.TTF" type="font/ttf">
+  <link rel="preload" as="font" href="./assets/fonts/Arcade classic/ARCADECLASSIC.TTF" type="font/ttf" crossorigin>
   <title>Chrome Dino</title>
 </head>
 

@@ -13,7 +13,7 @@ export class GameHUD extends Phaser.Scene {
     this.healthbar.create(this)
     this.healthbar.initial(5)
     this.scoreText = this.add.text(16, 80, 'score: ', { fontFamily: 'ARCADECLASSIC', color: 'black', fontSize: '4em' })
-    this.scoreNumberText = this.add.text(140, 80, '', { fontFamily: 'ARCADECLASSIC', color: 'red', fontSize: '4em' })
+    this.scoreNumberText = this.add.text(160, 80, '', { fontFamily: 'ARCADECLASSIC', color: 'red', fontSize: '4em' })
     this.username = this.add.text(16, 8, '', { fontFamily: 'ARCADECLASSIC', color: 'black', fontSize: '4em' })
 
     fetch('/game/username.php')

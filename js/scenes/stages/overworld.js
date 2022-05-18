@@ -133,6 +133,9 @@ export class OverworldStage extends Phaser.Scene {
       this.player.object.setVelocityX(1000 * speed)
       this.background.tilePositionX += speed * 0.3
       this.backgroundCloud.tilePositionX += speed * 0.1
+      if (this.player.object.x - this.cameras.main.scrollX < -64) {
+        this.player.object.health -= 9999
+      }
     }
 
     if (this.cameras.main.scrollX >= mod) {
