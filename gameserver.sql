@@ -31,7 +31,7 @@ CREATE TABLE `user` (
   `username` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
   `s_password` varchar(255) NOT NULL,
-  `score` int(11) NOT NULL
+  `score` int(11) INTEGER DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
